@@ -1,0 +1,161 @@
+baseURL: "https://blog.nanimonai.org/"
+title: nanimonai's Blog
+languageCode: "zh" # 语 言 编 码 (如 简 体 中 文 : zh)
+paginate: 6
+theme: PaperMod
+author: "nanimonai"
+defaultContentLanguage: "zh"
+
+enableInlineShortcodes: true # 短 代 码 支 持
+enableRobotsTXT: true
+enableEmoji: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+# 高级配置
+outputs:
+    home:
+        - HTML
+        - RSS
+        - JSON # is necessary
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+
+params:
+  title: Neuromancer
+  description: "Neuromancer"
+  ShowFullTextinRSS: true
+  keywords: [Blog,PaperMod]
+  author: Me
+  # author: ["Me", "You"] # multiple authors
+  DateFormat: "2006-01-02"
+  defaultTheme: dark # dark, light
+  disableThemeToggle: false
+
+  ShowAllPagesInArchive: true
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: false
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: true
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: false
+  mainSections:
+    - post
+
+
+
+  giscus:
+    comments:
+        enabled: true
+        provider: giscus
+        giscus:
+            repo: nanimonaic/docx
+            id: R_kgDOKiAoMQ
+            category:
+                name: Announcements
+                id: DIC_kwDOKiAoMc4CaPcU
+            mapping: https://blog.nanimonai.org
+            reactionsEnabled: 1
+            emitMetadata: 0
+    
+
+
+
+  assets:
+    # disableHLJS: true # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: "https://bed.4everland.store/头像1.jpg"
+    favicon16x16: "https://bed.4everland.store/头像1.jpg"
+    favicon32x32: "https://bed.4everland.store/头像1.jpg"
+    apple_touch_icon: "https://bed.4everland.store/头像1.jpg"
+    safari_pinned_tab: "https://bed.4everland.store/头像1.jpg"
+
+  label:
+    text: "Neuromancer"
+    icon: /apple-touch-icon.png
+    iconHeight: 35
+
+  # profile-mode
+  profileMode:
+    enabled: true # needs to be explicitly set
+    title: nanimonai
+    subtitle: "吾魂兮无求乎永生，竭尽兮人事之所能"
+    imageUrl: "https://bed.4everland.store/头像1.jpg"
+    imageWidth: 120
+    imageHeight: 120
+    imageTitle: my image
+  comments: true
+  socialIcons:
+    - name: bilibili
+      url: "https://space.bilibili.com/433876873"
+    - name: Github
+      url: "https://github.com/nanimonaic"   
+
+
+  # home-info mode
+  homeInfoParams:
+    Title: "悲鸣"
+    Content: “我们义无反顾地试着后悔，我们声嘶力竭地假装呐喊，我们万分惋惜地浪费着，用尽一切换来的纸张”
+
+  cover:
+    hidden: false # hide everywhere but not in structured data
+    hiddenInList: false # hide on list pages and home
+    hiddenInSingle: true # hide on single page
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+menu:
+  main:
+    - identifier: 文章
+      name: 文章
+      url: /posts
+      weight: 10
+    - identifier: search
+      name: 搜索
+      url: /search
+      weight: 20
+    - identifier: 友链
+      name: 友链
+      url: /link
+      weight: 30
+    - identifier: archives
+      name: 归档
+      url: /archives/
+    - identifier: about
+      name: 关于
+      url: /about/
+      weight: 40
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+    #anchorLineNos: true
+    codeFences: true
+    #guessSyntax: true
+    #lineNos: true
+    #style: monokai
+
+
+

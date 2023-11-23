@@ -1,0 +1,24 @@
+[submodule "themes/ananke"]
+	path = themes/ananke
+	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
+[submodule "themes/just-me"]
+	path = themes/just-me
+	url = https://github.com/jota-ele-ene/just-me.git
+[submodule "themes/echo"]
+	path = themes/echo
+	url = https://github.com/forecho/hugo-theme-echo.git
+[submodule "themes/PaperMod"]
+	path = themes/PaperMod
+	url = https://github.com/adityatelange/hugo-PaperMod.git
+[submodule "themes/LoveIt"]
+	path = themes/LoveIt
+	url = https://github.com/dillonzq/LoveIt.git
+[submodule "themes/ixy"]
+	path = themes/ixy
+	url = https://github.com/yihui/hugo-ivy.git
+[submodule "themes/hiruko"]
+	path = themes/hiruko
+	url = https://github.com/GenkunAbe/hugo-theme-hiruko.git
+[submodule "themes/hugo-theme-tokiwa"]
+	path = themes/hugo-theme-tokiwa
+	url = https://github.com/heyeshuang/hugo-theme-tokiwa.git
