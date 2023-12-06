@@ -15,8 +15,7 @@ disableShare: true # 底部不显示分享栏
 showbreadcrumbs: false
 ---
 
-&emsp;&emsp;紧紧握她的手.  
 
-&emsp;&emsp;温暖,又有点稚嫩.高中的时间一晃而过,那些美好,吵架赌气,犯傻犯错,还有能征服一切的笑容已经留存在记忆里挺久了.  
-
-&emsp;&emsp;嘛，幸运的是，我们还能互相依偎着.
+&emsp;&emsp;我是一个爱打游戏的老人，偶尔假装自己在努力学习
+&emsp;&emsp;本项目由 [Hugo](https://gohugo.io/) 生成
+&emsp;&emsp;主题 [Paper](https://github.com/adityatelange/hugo-Paper) 由 [adityatelange](https://github.com/adityatelange) 开发
