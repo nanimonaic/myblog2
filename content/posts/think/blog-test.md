@@ -4,7 +4,7 @@ draft: false
 author: ["nanimonai"]
 date: 2023-09-28
 description: 这是我的第一篇文章
-hidemeta: false
+hidemeta: true
 ---
 
 **Hello,world!**

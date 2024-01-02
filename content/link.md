@@ -12,7 +12,7 @@ comment: false
 
 {{< friend name="Ice Year" url="https://blog.iceyear.eu.org" logo="https://blog.iceyear.eu.org/android-chrome-512x512.webp" word="Il n’y a pas de hasard, il n’y a que des rendez-vous." >}}
 
-{{< friend name="Yon Zilch" url="https://blog.yon.im/" logo="https://static.yon.im/images/avatar.webp" word="来自彼岸，归于虚无。浮华人生，黄粱一梦。" >}}
+{{< friend name="Yon Zilch" url="https://blog.yon.im/" logo="hhttps://static.yon.im/image/avatar.webp" word="来自彼岸，归于虚无。浮华人生，黄粱一梦。" >}}
 
 {{< friend name="春风少年兄" url="https://blog.0pt.im/" logo="https://img.0pt.im/blogbuilt/title.jpeg" word="你在世纪大道东门" >}}
 

@@ -2,7 +2,7 @@
 title: "思考"
 date: 2023-10-28T00:48:58+08:00
 draft: false
-description: 
+#description:
 hidemeta: true # 是否隐藏文章的元信息，如发布日期、作者等
 url: "/think"
 ---

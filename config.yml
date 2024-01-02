@@ -77,11 +77,11 @@ params:
   assets:
     # disableHLJS: true # to disable highlight.js
     # disableFingerprinting: true
-    favicon: "https://s3.tebi.io/img.nanimonai.org/quan.jpg"
-    favicon16x16: "https://s3.tebi.io/img.nanimonai.org/quan.jpg"
-    favicon32x32: "https://s3.tebi.io/img.nanimonai.org/quan.jpg"
-    apple_touch_icon: "https://s3.tebi.io/img.nanimonai.org/quan.jpg"
-    safari_pinned_tab: "https://s3.tebi.io/img.nanimonai.org/quan.jpg"
+    favicon: "https://img.nanimonai.org/headimg.jpg"
+    favicon16x16: "https://img.nanimonai.org/headimg.jpg"
+    favicon32x32: "https://img.nanimonai.org/headimg.jpg"
+    apple_touch_icon: "https://img.nanimonai.org/headimg.jpg"
+    safari_pinned_tab: "https://img.nanimonai.org/headimg.jpg"
 
   label:
     text: "Neuromancer"
@@ -93,7 +93,7 @@ params:
     enabled: true # needs to be explicitly set
     title: nanimonai
     subtitle: "吾魂兮无求乎永生，竭尽兮人事之所能"
-    imageUrl: "https://s3.tebi.io/img.nanimonai.org/quan.jpg"
+    imageUrl: "https://img.nanimonai.org/headimg.jpg"
     imageWidth: 120
     imageHeight: 120
     imageTitle: my image
