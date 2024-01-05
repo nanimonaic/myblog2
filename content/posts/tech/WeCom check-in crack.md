@@ -42,10 +42,10 @@ hidemeta: true
   
 2. 撰写并运行脚本。 
 
-&emsp;&emsp;脚本的编写可能是比较难搞定的一个步骤。但是也不难。可以参考[(Github)](https://github.com/hlsky1988/WeChatCheckingIn)，他是写Hamibot上的脚本的，可以参考借鉴思路。   
+&emsp;&emsp;脚本编写可以参考[(Github)](https://github.com/hlsky1988/WeChatCheckingIn)，他是写Hamibot上的脚本的，可以参考借鉴思路。   
   
   
-&emsp;&emsp;以下是我的打卡脚本，也可以进行一个参考比较，主要是延迟的选定，然后看需不需要增加打卡匹配失败后的重新尝试模块，个人感觉没有必要。  
+&emsp;&emsp;以下是我的打卡脚本，别人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了不用去完善导航到打卡栏的操作。
   
   
 ```
@@ -65,44 +65,6 @@ toastLog('启动企业微信,准备打卡')
 
 // 启动企业微信
 app.launchPackage("com.tencent.wework");
-
-// 等待企业微信启动
-waitForPackage("com.tencent.wework", 5000);
-
-// 等待界面加载的逻辑
-sleep(3000);
-
-// 导航到打卡页面的操作
-click("工作台");
-sleep(1000);
-click("打卡");
-sleep(1000);
-
-// 执行打卡操作
-click("上班打卡");
-sleep(1000);
-
-function signAction() {
-    toastLog('signAction 开始执行')
-    let signIn = text('上班打卡').findOne(1000)
-    let signOut = text('下班打卡').findOne(1000)
-    if (signIn) {
-      let stepLeft = signIn.bounds().left + 10
-      let stepTop = signIn.bounds().top + 10
-      click(stepLeft, stepTop)
-      check()
-    } else if (signOut) {
-      let stepLeft = signOut.bounds().left + 10
-      let stepTop = signOut.bounds().top + 10
-      click(stepLeft, stepTop)
-      check()
-    } else {
-      toastLog('打卡未完成,正在检查打卡状态')
-      check()
-    }
-  }
-
-// 可以加上处理打卡后的逻辑，如发送打卡结果通知等，鄙人太懒和垃圾所以没写
 
 // 结束脚本
 exit();

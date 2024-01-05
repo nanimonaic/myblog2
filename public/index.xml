@@ -198,11 +198,11 @@
     </item>
     
     <item>
-      <title>Two ways to remotely perform corporate WeChat check-in or other check-in operations without root</title>
-      <link>https://blog.nanimonai.org/posts/tech/-two-ways-to-remotely-perform-corporate-wechat-check-in-or-other-check-in-operations-without-root/</link>
+      <title>WeCom check-in crack</title>
+      <link>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/tech/-two-ways-to-remotely-perform-corporate-wechat-check-in-or-other-check-in-operations-without-root/</guid>
+      <guid>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</guid>
       <description>为什么研究这个 学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。
 因此，第一种方法应运而生：
 在手机上安装VMOS Pro，走虚拟机路线。其中的root和Xposed的模块安装均为傻瓜式操作，这里不过多赘述。BTW，虚拟安卓机在大学的另一大用途就是通过学习通考试。
@@ -217,8 +217,8 @@ OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，
 鄙人的脚本跑在一个叫OpenAuto.js的开源软件上(Github)目前测试也是可行的，甚至优于Hamibot，因为其可以设置脚本的定时执行和循环执行，可以完成很多很多的其他操作而不用把这些内容加到脚本编写里面去。但还是要提供无障碍和一些权限，因此仍然建议找台备用机。
 设置无障碍，省电设置云云。
 撰写并运行脚本。
-脚本的编写可能是比较难搞定的一个步骤。但是也不难。可以参考(Github)，他是写Hamibot上的脚本的，可以参考借鉴思路。
-以下是我的打卡脚本，也可以进行一个参考比较，主要是延迟的选定，然后看需不需要增加打卡匹配失败后的重新尝试模块，个人感觉没有必要。
+脚本编写可以参考(Github)，他是写Hamibot上的脚本的，可以参考借鉴思路。
+以下是我的打卡脚本，别人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了不用去完善导航到打卡栏的操作。
 // 确保开启了Auto.js的无障碍服务 auto.waitFor(); // 唤醒并解锁设备（根据你的设备情况，这里需要自定义解锁逻辑） device.wakeUp(); let { height, width } = device let x = width / 2 let y1 = (height / 3) * 2 let y2 = height / 3 swipe(x, y1, x + 5, y2, 500) sleep(3000) toastLog(&amp;#39;启动企业微信,准备打卡&amp;#39;) // 启动企业微信 app.</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
 <p>  学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。</p>
@@ -252,8 +252,8 @@ OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，
 <p>撰写并运行脚本。</p>
 </li>
 </ol>
-<p>  脚本的编写可能是比较难搞定的一个步骤。但是也不难。可以参考<a href="https://github.com/hlsky1988/WeChatCheckingIn">(Github)</a>，他是写Hamibot上的脚本的，可以参考借鉴思路。</p>
-<p>  以下是我的打卡脚本，也可以进行一个参考比较，主要是延迟的选定，然后看需不需要增加打卡匹配失败后的重新尝试模块，个人感觉没有必要。</p>
+<p>  脚本编写可以参考<a href="https://github.com/hlsky1988/WeChatCheckingIn">(Github)</a>，他是写Hamibot上的脚本的，可以参考借鉴思路。</p>
+<p>  以下是我的打卡脚本，别人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了不用去完善导航到打卡栏的操作。</p>
 <pre tabindex="0"><code>// 确保开启了Auto.js的无障碍服务
 auto.waitFor();
 
@@ -270,44 +270,6 @@ toastLog(&#39;启动企业微信,准备打卡&#39;)
 
 // 启动企业微信
 app.launchPackage(&#34;com.tencent.wework&#34;);
-
-// 等待企业微信启动
-waitForPackage(&#34;com.tencent.wework&#34;, 5000);
-
-// 等待界面加载的逻辑
-sleep(3000);
-
-// 导航到打卡页面的操作
-click(&#34;工作台&#34;);
-sleep(1000);
-click(&#34;打卡&#34;);
-sleep(1000);
-
-// 执行打卡操作
-click(&#34;上班打卡&#34;);
-sleep(1000);
-
-function signAction() {
-    toastLog(&#39;signAction 开始执行&#39;)
-    let signIn = text(&#39;上班打卡&#39;).findOne(1000)
-    let signOut = text(&#39;下班打卡&#39;).findOne(1000)
-    if (signIn) {
-      let stepLeft = signIn.bounds().left + 10
-      let stepTop = signIn.bounds().top + 10
-      click(stepLeft, stepTop)
-      check()
-    } else if (signOut) {
-      let stepLeft = signOut.bounds().left + 10
-      let stepTop = signOut.bounds().top + 10
-      click(stepLeft, stepTop)
-      check()
-    } else {
-      toastLog(&#39;打卡未完成,正在检查打卡状态&#39;)
-      check()
-    }
-  }
-
-// 可以加上处理打卡后的逻辑，如发送打卡结果通知等，鄙人太懒和垃圾所以没写
 
 // 结束脚本
 exit();
