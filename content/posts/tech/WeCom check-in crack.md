@@ -45,14 +45,14 @@ hidemeta: true
 &emsp;&emsp;脚本编写可以参考[(Github)](https://github.com/hlsky1988/WeChatCheckingIn)，他是写Hamibot上的脚本的，可以参考借鉴思路。   
   
   
-&emsp;&emsp;以下是我的打卡脚本，别人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了不用去完善导航到打卡栏的操作。
+&emsp;&emsp;以下是我的打卡脚本，网络上有人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了，不用去完善导航到打卡栏再点击打卡的操作。
   
   
 ```
 // 确保开启了Auto.js的无障碍服务
 auto.waitFor();
 
-// 唤醒并解锁设备（根据你的设备情况，这里需要自定义解锁逻辑）
+// 唤醒并解锁设备（根据你的设备情况，这里可以自定义解锁逻辑）
 device.wakeUp();
 let { height, width } = device
 let x = width / 2
@@ -65,6 +65,8 @@ toastLog('启动企业微信,准备打卡')
 
 // 启动企业微信
 app.launchPackage("com.tencent.wework");
+
+//此时应该会自动完成打卡
 
 // 结束脚本
 exit();
