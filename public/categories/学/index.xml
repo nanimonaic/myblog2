@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>学 on nanimonai&#39;s Blog</title>
+    <link>http://localhost:1313/categories/%E5%AD%A6/</link>
+    <description>Recent content in 学 on nanimonai&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sun, 17 Dec 2023 18:17:28 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于Arch Linux搭建hugo博客</title>
+      <link>http://localhost:1313/learn/3-1/</link>
+      <pubDate>Sun, 17 Dec 2023 18:17:28 +0800</pubDate>
+      
+      <guid>http://localhost:1313/learn/3-1/</guid>
+      <description>1.本地搭建hugo 本篇基于的环境是arch linux。
+安装
+yay -S go yay -S gohugo-extended-bin hugo new site MyFreshWebsite --format yaml # replace MyFreshWebsite with name of your website 该操作会创建一个博客文件夹，并在里面生成博客文件.myblog 可以替换成你想要的博客文件夹的名字。 在 Hugo 站点 MyFreshWebsite 的文件夹中，运行：
+git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth=1 cd themes/PaperMod git pull 将博客原来的配置文件hugo.toml删除:
+rm -r hugo.toml 在 config.yml 中添加：
+theme: [&amp;#34;PaperMod&amp;#34;] </description>
+      <content:encoded><![CDATA[<h1 id="1本地搭建hugo">1.本地搭建hugo</h1>
+<p>  本篇基于的环境是arch linux。</p>
+<p>  安装</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">yay -S go
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">yay -S gohugo-extended-bin
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">hugo new site MyFreshWebsite --format yaml
+</span></span><span class="line"><span class="cl"><span class="c1"># replace MyFreshWebsite with name of your website</span>
+</span></span></code></pre></div><p>  该操作会创建一个博客文件夹，并在里面生成博客文件.<code>myblog</code> 可以替换成你想要的博客文件夹的名字。
+  在 Hugo 站点 MyFreshWebsite 的文件夹中，运行：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/adityatelange/hugo-PaperMod themes/PaperMod --depth<span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> themes/PaperMod
+</span></span><span class="line"><span class="cl">git pull
+</span></span></code></pre></div><p>将博客原来的配置文件hugo.toml删除:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -r hugo.toml
+</span></span></code></pre></div><p>在 config.yml 中添加：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;PaperMod&#34;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div>]]></content:encoded>
+    </item>
+    
+  </channel>
+</rss>

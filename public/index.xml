@@ -116,7 +116,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://blog.nanimonai.org/link/</guid>
-      <description>他们是谁 来自何方 欲往何处？</description>
+      <description>何必使用火刑具呢？他人，即地狱。</description>
       <content:encoded><![CDATA[<a target="_blank" href=https://blog.iceyear.eu.org title=Ice&#32;Year class="friendurl">
   <div class="frienddiv">
     <div class="frienddivleft">
@@ -131,7 +131,7 @@
 <a target="_blank" href=https://blog.yon.im/ title=Yon&#32;Zilch class="friendurl">
   <div class="frienddiv">
     <div class="frienddivleft">
-      <img class="myfriend" src=#ZgotmplZ />
+      <img class="myfriend" src=https://static.yon.im/image/avatar.webp />
     </div>
     <div class="frienddivright">
       <div class="friendname">Yon Zilch</div>
@@ -139,14 +139,25 @@
     </div>
   </div>
 </a>
-<a target="_blank" href=https://blog.0pt.im/ title=春风少年兄 class="friendurl">
+<a target="_blank" href=https://blog.0pt.icu/ title=春风少年兄 class="friendurl">
   <div class="frienddiv">
     <div class="frienddivleft">
-      <img class="myfriend" src=https://img.0pt.im/blogbuilt/title.jpeg />
+      <img class="myfriend" src=https://img.0pt.icu/blogbuilt/avatar.webp />
     </div>
     <div class="frienddivright">
       <div class="friendname">春风少年兄</div>
       <div class="friendinfo">你在世纪大道东门</div>
+    </div>
+  </div>
+</a>
+<a target="_blank" href=https://blog.dich.ink/ title=Dich class="friendurl">
+  <div class="frienddiv">
+    <div class="frienddivleft">
+      <img class="myfriend" src=https://img.0pt.icu/blogbuilt/avatar.webp />
+    </div>
+    <div class="frienddivright">
+      <div class="friendname">Dich</div>
+      <div class="friendinfo">用电子罗盘，转赛博核桃，勘电磁风水，寻网络龙脉</div>
     </div>
   </div>
 </a>
@@ -161,25 +172,25 @@
     </div>
   </div>
 </a>
-<a target="_blank" href=http://samdo.top:4000/ title=sdy_zjx class="friendurl">
+<a target="_blank" href=https://doosam.uk/ title=sdy_zjx class="friendurl">
   <div class="frienddiv">
     <div class="frienddivleft">
-      <img class="myfriend" src=http://samdo.top:4000/images/avatar.jpg />
+      <img class="myfriend" src=https://avatars.githubusercontent.com/u/21271728?v&#61;4 />
     </div>
     <div class="frienddivright">
       <div class="friendname">sdy_zjx</div>
-      <div class="friendinfo">可爱的学姐捏</div>
+      <div class="friendinfo">可爱的学姐</div>
     </div>
   </div>
 </a>
 <a target="_blank" href=https://jinmaoquan12.github.io/bopmomio/ title=金毛犬 class="friendurl">
   <div class="frienddiv">
     <div class="frienddivleft">
-      <img class="myfriend" src=https://bed.4everland.store/1.png />
+      <img class="myfriend" src=https://telegraph-image-bhn.pages.dev/file/6707609445463b6fbe045.png />
     </div>
     <div class="frienddivright">
       <div class="friendname">金毛犬</div>
-      <div class="friendinfo">可爱的学妹捏</div>
+      <div class="friendinfo">可爱的学妹</div>
     </div>
   </div>
 </a>
@@ -190,7 +201,7 @@
     </div>
     <div class="frienddivright">
       <div class="friendname">watermeko</div>
-      <div class="friendinfo">FPS高手</div>
+      <div class="friendinfo"></div>
     </div>
   </div>
 </a>
@@ -199,10 +210,10 @@
     
     <item>
       <title>WeCom check-in crack</title>
-      <link>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</link>
+      <link>https://blog.nanimonai.org/posts/tech/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</guid>
+      <guid>https://blog.nanimonai.org/posts/tech/</guid>
       <description>为什么研究这个 学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。
 因此，第一种方法应运而生：
 在手机上安装VMOS Pro，走虚拟机路线。其中的root和Xposed的模块安装均为傻瓜式操作，这里不过多赘述。BTW，虚拟安卓机在大学的另一大用途就是通过学习通考试。
@@ -211,15 +222,15 @@ Xposed Installer后，激活应用变量，配置指定应用（如企业微信�
 启动fake location。位置选择到位后启动模拟，同时启动基站模拟。
 PS：此法是由Mike和大西瓜研究而出。此法也有助于不同大学的上课打卡机制（我所了解的其他大学的打卡机制不是很严格），上班族的上班打卡机制。以及Fake location的路线模拟，可以帮助有需要者进行跑步的模拟。（导入运动软件进行操作云云），网络上面很多大佬也讲过类似操作，本人这样帮过朋友，证明其可行性。就是画路线的时候别超出操场或者撞墙里面了，以免露馅。
 好日子的结束 在一次美美不请假而出游的日子中，我意外发现第一种方法失效了。其具体表现为：地图识别我在A地（GPS），也就是目标打卡地，但是我的伪装被企业微信识破，即它能准确定位到我的真实所在地B地。而这个方案是在2023.12之前都有效的，且亲自实验过的。目前失败原因不明，有思路者欢迎联系我一起探讨。
-后经排查原因无果后，高人enadixxoOxoxO指点采用第二种方法。
+后经排查原因无果后，高人OO指点采用第二种方法。
 OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，并且自己实验成功。
 虽然说用的是老旧的备用机。但是仍然要注意自己的安全，隐私等。我最开始试验是在Hamibot上，Hamibot可以远程执行脚本，安全系数低。它算一个云端控制，理论上讲服务器后退可以看我手机的内容甚至控制，所以并不推荐这个平台。里面虽然有日志，但是服务器是外人的。开发文档里面有扫描文件，截屏，OCR获取信息。理论上能获取你手机的任何操作单仅限于显示时候，锁屏没有密码脚本的话，也是开不起来的。如果真要使用也建议是暂时使用几次，不需要使用的时候推荐关闭无障碍。
 鄙人的脚本跑在一个叫OpenAuto.js的开源软件上(Github)目前测试也是可行的，甚至优于Hamibot，因为其可以设置脚本的定时执行和循环执行，可以完成很多很多的其他操作而不用把这些内容加到脚本编写里面去。但还是要提供无障碍和一些权限，因此仍然建议找台备用机。
 设置无障碍，省电设置云云。
 撰写并运行脚本。
 脚本编写可以参考(Github)，他是写Hamibot上的脚本的，可以参考借鉴思路。
-以下是我的打卡脚本，别人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了不用去完善导航到打卡栏的操作。
-// 确保开启了Auto.js的无障碍服务 auto.waitFor(); // 唤醒并解锁设备（根据你的设备情况，这里需要自定义解锁逻辑） device.wakeUp(); let { height, width } = device let x = width / 2 let y1 = (height / 3) * 2 let y2 = height / 3 swipe(x, y1, x + 5, y2, 500) sleep(3000) toastLog(&amp;#39;启动企业微信,准备打卡&amp;#39;) // 启动企业微信 app.</description>
+以下是我的打卡脚本，网络上有人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了，不用去完善导航到打卡栏再点击打卡的操作。
+// 确保开启了Auto.js的无障碍服务 auto.waitFor(); // 唤醒并解锁设备（根据你的设备情况，这里可以自定义解锁逻辑） device.wakeUp(); let { height, width } = device let x = width / 2 let y1 = (height / 3) * 2 let y2 = height / 3 swipe(x, y1, x + 5, y2, 500) sleep(3000) toastLog(&amp;#39;启动企业微信,准备打卡&amp;#39;) // 启动企业微信 app.</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
 <p>  学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。</p>
 <p>  因此，第一种方法应运而生：</p>
@@ -240,7 +251,7 @@ OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，
 <p>  PS：此法是由Mike和大西瓜研究而出。此法也有助于不同大学的上课打卡机制（我所了解的其他大学的打卡机制不是很严格），上班族的上班打卡机制。以及Fake location的路线模拟，可以帮助有需要者进行跑步的模拟。（导入运动软件进行操作云云），网络上面很多大佬也讲过类似操作，本人这样帮过朋友，证明其可行性。就是画路线的时候别超出操场或者撞墙里面了，以免露馅。</p>
 <h1 id="好日子的结束">好日子的结束</h1>
 <p>  在一次美美不请假而出游的日子中，我意外发现第一种方法失效了。其具体表现为：地图识别我在A地（GPS），也就是目标打卡地，但是我的伪装被企业微信识破，即它能准确定位到我的真实所在地B地。而这个方案是在2023.12之前都有效的，且亲自实验过的。目前失败原因不明，有思路者欢迎联系我一起探讨。</p>
-<p>  后经排查原因无果后，高人enadixxoOxoxO指点采用第二种方法。</p>
+<p>  后经排查原因无果后，高人OO指点采用第二种方法。</p>
 <p>  OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，并且自己实验成功。</p>
 <p>  虽然说用的是老旧的备用机。但是仍然要注意自己的安全，隐私等。我最开始试验是在Hamibot上，Hamibot可以远程执行脚本，安全系数低。它算一个云端控制，理论上讲服务器后退可以看我手机的内容甚至控制，所以并不推荐这个平台。里面虽然有日志，但是服务器是外人的。开发文档里面有扫描文件，截屏，OCR获取信息。理论上能获取你手机的任何操作单仅限于显示时候，锁屏没有密码脚本的话，也是开不起来的。如果真要使用也建议是暂时使用几次，不需要使用的时候推荐关闭无障碍。</p>
 <p>  鄙人的脚本跑在一个叫OpenAuto.js的开源软件上<a href="https://github.com/openautojs/openautojs">(Github)</a>目前测试也是可行的，甚至优于Hamibot，因为其可以设置脚本的定时执行和循环执行，可以完成很多很多的其他操作而不用把这些内容加到脚本编写里面去。但还是要提供无障碍和一些权限，因此仍然建议找台备用机。</p>
@@ -253,11 +264,11 @@ OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，
 </li>
 </ol>
 <p>  脚本编写可以参考<a href="https://github.com/hlsky1988/WeChatCheckingIn">(Github)</a>，他是写Hamibot上的脚本的，可以参考借鉴思路。</p>
-<p>  以下是我的打卡脚本，别人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了不用去完善导航到打卡栏的操作。</p>
+<p>  以下是我的打卡脚本，网络上有人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了，不用去完善导航到打卡栏再点击打卡的操作。</p>
 <pre tabindex="0"><code>// 确保开启了Auto.js的无障碍服务
 auto.waitFor();
 
-// 唤醒并解锁设备（根据你的设备情况，这里需要自定义解锁逻辑）
+// 唤醒并解锁设备（根据你的设备情况，这里可以自定义解锁逻辑）
 device.wakeUp();
 let { height, width } = device
 let x = width / 2
@@ -270,6 +281,8 @@ toastLog(&#39;启动企业微信,准备打卡&#39;)
 
 // 启动企业微信
 app.launchPackage(&#34;com.tencent.wework&#34;);
+
+//此时应该会自动完成打卡
 
 // 结束脚本
 exit();

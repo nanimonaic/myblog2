@@ -4,8 +4,10 @@ draft: false
 author: ["nanimonai"]
 date: 2024-1-2
 hidemeta: true
+url: "/posts/tech"
 #description: 2024-1-2   ·  nanimonai
-#Toc: false
+toc: false
+
 ---
 
 # 为什么研究这个
@@ -27,7 +29,7 @@ hidemeta: true
 
 &emsp;&emsp;在一次美美不请假而出游的日子中，我意外发现第一种方法失效了。其具体表现为：地图识别我在A地（GPS），也就是目标打卡地，但是我的伪装被企业微信识破，即它能准确定位到我的真实所在地B地。而这个方案是在2023.12之前都有效的，且亲自实验过的。目前失败原因不明，有思路者欢迎联系我一起探讨。
       
-&emsp;&emsp;后经排查原因无果后，高人enadixxoOxoxO指点采用第二种方法。
+&emsp;&emsp;后经排查原因无果后，高人OO指点采用第二种方法。
 
 &emsp;&emsp;OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，并且自己实验成功。  
   
