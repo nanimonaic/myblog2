@@ -16,7 +16,7 @@ comment: false
 
 {{< friend name="春风少年兄" url="https://blog.0pt.icu/" logo="https://img.0pt.icu/blogbuilt/avatar.webp" word="你在世纪大道东门" >}}
 
-{{< friend name="Dich" url="https://blog.dich.ink/" logo="https://img.0pt.icu/blogbuilt/avatar.webp" word="用电子罗盘，转赛博核桃，勘电磁风水，寻网络龙脉" >}}
+{{< friend name="Dich" url="https://blog.dich.ink/" logo="" word="用电子罗盘，转赛博核桃，勘电磁风水，寻网络龙脉" >}}
 
 {{< friend name="milvoid" url="https://milvoid.com/" logo="https://bed.4everland.store/2.png" word="Milvoid 什么也没有的主页" >}}
 
