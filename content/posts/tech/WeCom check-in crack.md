@@ -2,12 +2,9 @@
 title: "WeCom check-in crack"
 draft: false
 author: ["nanimonai"]
-date: 2024-1-2
+date: 2024-01-02
 hidemeta: true
-url: "/posts/tech"
-#description: 2024-1-2   ·  nanimonai
-toc: false
-
+description:
 ---
 
 # 为什么研究这个

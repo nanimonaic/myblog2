@@ -6,8 +6,9 @@ url: "/link"
 description: "何必使用火刑具呢？他人，即地狱。"
 summary: "link"
 placeholder: "搜索框内的默认显示"
-customCSS: ["css/extended/blank.css"]
-comment: false
+comments: false
+hidemeta: true
+
 ---
 
 {{< friend name="Ice Year" url="https://blog.iceyear.eu.org" logo="https://blog.iceyear.eu.org/android-chrome-512x512.webp" word="Il n’y a pas de hasard, il n’y a que des rendez-vous." >}}

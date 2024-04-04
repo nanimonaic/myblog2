@@ -43,7 +43,7 @@ params:
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: false
   ShowWordCount: true
-  ShowRssButtonInSectionTermList: true
+  ShowRssButtonInSectionTermList: false
   UseHugoToc: false
   disableSpecial1stPost: false
   disableScrollToTop: false
@@ -99,8 +99,6 @@ params:
     imageTitle: my image
   comments: true
   socialIcons:
-    - name: bilibili
-      url: "https://space.bilibili.com/433876873"
     - name: Github
       url: "https://github.com/nanimonaic"   
 

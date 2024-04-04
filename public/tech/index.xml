@@ -5,13 +5,14 @@
     <link>https://blog.nanimonai.org/tech/</link>
     <description>Recent content in 技术 on nanimonai&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language><atom:link href="https://blog.nanimonai.org/tech/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh</language>
+    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.nanimonai.org/tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WeCom check-in crack</title>
-      <link>https://blog.nanimonai.org/posts/tech/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <link>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</link>
+      <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/tech/</guid>
+      <guid>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</guid>
       <description>为什么研究这个 学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。
 因此，第一种方法应运而生：
 在手机上安装VMOS Pro，走虚拟机路线。其中的root和Xposed的模块安装均为傻瓜式操作，这里不过多赘述。BTW，虚拟安卓机在大学的另一大用途就是通过学习通考试。
