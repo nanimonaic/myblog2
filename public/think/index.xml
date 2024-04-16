@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>思考 on nanimonai&#39;s Blog</title>
-    <link>https://blog.nanimonai.org/think/</link>
+    <link>http://localhost:1313/think/</link>
     <description>Recent content in 思考 on nanimonai&#39;s Blog</description>
-    <generator>Hugo -- 0.124.1</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 30 Oct 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.nanimonai.org/think/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/think/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>舞文弄墨</title>
-      <link>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
+      <link>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
       <pubDate>Mon, 30 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
+      
+      <guid>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
       <description>现代的青年愈发得迷失了。我也一样。所谓沉默，沉默的大多数。所谓嘈杂。一位看客，或许会好过突如其来的死亡吧。害怕失去害怕未知，害怕自己会对现实抱有期望
 听起来好像可笑的很。在一个青春中畏手畏脚，不敢做出承诺，也不怎么负责任。几年后回头看看，那会是庆幸还是懊悔？老者们责备，嘲笑年轻人的爱情，认为其只是源于欣赏，源于心理上虚假的自我幻想。青年人却嘲讽老者的“迂”，自以为能为另一半负起责任，能够互相包容。
 好像都有些偏激。
@@ -34,11 +34,13 @@
 <p>  中国人极善造神，造了再毁，毁了再造，乐此不疲。</p>
 ]]></content:encoded>
     </item>
+    
     <item>
       <title>牢骚</title>
-      <link>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</link>
+      <link>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</link>
       <pubDate>Sat, 28 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</guid>
+      
+      <guid>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</guid>
       <description>找回了我用于记录往事的笔记本，近来手头的书也都还没读完，就权且写一些旧东西吧。
 2023.5 思想总是跑在前面。他看得太远，比只能活在当下的身体还远得多。拿掉希望就是让思想重新回归身体，而且身体总有一天会腐烂。
 2023.10 &amp;hellip;
@@ -67,11 +69,13 @@
 <p>  神性的解放，人性的回归。</p>
 ]]></content:encoded>
     </item>
+    
     <item>
       <title>Blog Test</title>
-      <link>https://blog.nanimonai.org/posts/think/blog-test/</link>
+      <link>http://localhost:1313/posts/think/blog-test/</link>
       <pubDate>Thu, 28 Sep 2023 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/blog-test/</guid>
+      
+      <guid>http://localhost:1313/posts/think/blog-test/</guid>
       <description>这是我的第一篇文章</description>
       <content:encoded><![CDATA[<p><strong>Hello,world!</strong></p>
 <p>写下这些字时，我是一名迷茫的电脑小白，进入浩如烟海的赛博世界，越是走到深处越会觉得自己无知，觉得自己无从下手。</p>
@@ -92,5 +96,6 @@
 </ul>
 ]]></content:encoded>
     </item>
+    
   </channel>
 </rss>

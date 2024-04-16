@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>nanimonai&#39;s Blog</title>
-    <link>https://blog.nanimonai.org/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on nanimonai&#39;s Blog</description>
-    <generator>Hugo -- 0.124.1</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 15 Apr 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.nanimonai.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Smart car - freshman trash version</title>
-      <link>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</link>
+      <link>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</link>
       <pubDate>Mon, 15 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</guid>
+      
+      <guid>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</guid>
       <description>这是什么 2024校EEA举办无人车的循迹避障赛。欣然规往。
 为什么去做这个 兴趣啊，混蛋！难道还是为了什么生计什么未来什么饭碗而去的嘛？
 咋做的 刚开始和队友是有甚大的意淫的，企图先整个初号机出来，选方案就选了挺久，然后参考了很多，车架也是上便宜点的亚克力，循迹依靠pwm调值，随便整个五路红外循迹接个面包板在来三节电池代码写写就完事。二代机直接上PID然后再优化机械结构，换更好电机之类的。
@@ -69,11 +69,13 @@ else if (SL2 == 0 &amp;&amp; SL1 == 0 &amp;&amp; SR1 == 0 &amp;&amp; SR2 == 0 &a
 <p><strong>DONE.</strong></p>
 ]]></content:encoded>
     </item>
+    
     <item>
       <title>WeCom check-in crack</title>
-      <link>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</link>
+      <link>http://localhost:1313/posts/tech/wecom-check-in-crack/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</guid>
+      
+      <guid>http://localhost:1313/posts/tech/wecom-check-in-crack/</guid>
       <description>为什么研究这个 学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。
 因此，第一种方法应运而生：
 在手机上安装VMOS Pro，走虚拟机路线。其中的root和Xposed的模块安装均为傻瓜式操作，这里不过多赘述。BTW，虚拟安卓机在大学的另一大用途就是通过学习通考试。
@@ -92,8 +94,8 @@ OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，
 以下是我的打卡脚本，网络上有人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了，不用去完善导航到打卡栏再点击打卡的操作。
 // 确保开启了Auto.js的无障碍服务 auto.waitFor(); // 唤醒并解锁设备（根据你的设备情况，这里可以自定义解锁逻辑） device.wakeUp(); let { height, width } = device let x = width / 2 let y1 = (height / 3) * 2 let y2 = height / 3 swipe(x, y1, x + 5, y2, 500) sleep(3000) toastLog(&amp;#39;启动企业微信,准备打卡&amp;#39;) // 启动企业微信 app.</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
-<p>  学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。</p>
-<p>  因此，第一种方法应运而生：</p>
+<p>学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。</p>
+<p>因此，第一种方法应运而生：</p>
 <ol>
 <li>
 <p>在手机上安装VMOS Pro，走虚拟机路线。其中的root和Xposed的模块安装均为傻瓜式操作，这里不过多赘述。BTW，虚拟安卓机在大学的另一大用途就是通过学习通考试。</p>
@@ -108,13 +110,13 @@ OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，
 <p>启动fake location。位置选择到位后启动模拟，同时启动基站模拟。</p>
 </li>
 </ol>
-<p>  PS：此法是由Mike和大西瓜研究而出。此法也有助于不同大学的上课打卡机制（我所了解的其他大学的打卡机制不是很严格），上班族的上班打卡机制。以及Fake location的路线模拟，可以帮助有需要者进行跑步的模拟。（导入运动软件进行操作云云），网络上面很多大佬也讲过类似操作，本人这样帮过朋友，证明其可行性。就是画路线的时候别超出操场或者撞墙里面了，以免露馅。</p>
+<p>PS：此法是由Mike和大西瓜研究而出。此法也有助于不同大学的上课打卡机制（我所了解的其他大学的打卡机制不是很严格），上班族的上班打卡机制。以及Fake location的路线模拟，可以帮助有需要者进行跑步的模拟。（导入运动软件进行操作云云），网络上面很多大佬也讲过类似操作，本人这样帮过朋友，证明其可行性。就是画路线的时候别超出操场或者撞墙里面了，以免露馅。</p>
 <h1 id="好日子的结束">好日子的结束</h1>
-<p>  在一次美美不请假而出游的日子中，我意外发现第一种方法失效了。其具体表现为：地图识别我在A地（GPS），也就是目标打卡地，但是我的伪装被企业微信识破，即它能准确定位到我的真实所在地B地。而这个方案是在2023.12之前都有效的，且亲自实验过的。目前失败原因不明，有思路者欢迎联系我一起探讨。</p>
-<p>  后经排查原因无果后，高人OO指点采用第二种方法。</p>
-<p>  OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，并且自己实验成功。</p>
-<p>  虽然说用的是老旧的备用机。但是仍然要注意自己的安全，隐私等。我最开始试验是在Hamibot上，Hamibot可以远程执行脚本，安全系数低。它算一个云端控制，理论上讲服务器后退可以看我手机的内容甚至控制，所以并不推荐这个平台。里面虽然有日志，但是服务器是外人的。开发文档里面有扫描文件，截屏，OCR获取信息。理论上能获取你手机的任何操作单仅限于显示时候，锁屏没有密码脚本的话，也是开不起来的。如果真要使用也建议是暂时使用几次，不需要使用的时候推荐关闭无障碍。</p>
-<p>  鄙人的脚本跑在一个叫OpenAuto.js的开源软件上<a href="https://github.com/openautojs/openautojs">(Github)</a>目前测试也是可行的，甚至优于Hamibot，因为其可以设置脚本的定时执行和循环执行，可以完成很多很多的其他操作而不用把这些内容加到脚本编写里面去。但还是要提供无障碍和一些权限，因此仍然建议找台备用机。</p>
+<p>在一次美美不请假而出游的日子中，我意外发现第一种方法失效了。其具体表现为：地图识别我在A地（GPS），也就是目标打卡地，但是我的伪装被企业微信识破，即它能准确定位到我的真实所在地B地。而这个方案是在2023.12之前都有效的，且亲自实验过的。目前失败原因不明，有思路者欢迎联系我一起探讨。</p>
+<p>后经排查原因无果后，高人OO指点采用第二种方法。</p>
+<p>OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，并且自己实验成功。</p>
+<p>虽然说用的是老旧的备用机。但是仍然要注意自己的安全，隐私等。我最开始试验是在Hamibot上，Hamibot可以远程执行脚本，安全系数低。它算一个云端控制，理论上讲服务器后退可以看我手机的内容甚至控制，所以并不推荐这个平台。里面虽然有日志，但是服务器是外人的。开发文档里面有扫描文件，截屏，OCR获取信息。理论上能获取你手机的任何操作单仅限于显示时候，锁屏没有密码脚本的话，也是开不起来的。如果真要使用也建议是暂时使用几次，不需要使用的时候推荐关闭无障碍。</p>
+<p>鄙人的脚本跑在一个叫OpenAuto.js的开源软件上<a href="https://github.com/openautojs/openautojs">(Github)</a>目前测试也是可行的，甚至优于Hamibot，因为其可以设置脚本的定时执行和循环执行，可以完成很多很多的其他操作而不用把这些内容加到脚本编写里面去。但还是要提供无障碍和一些权限，因此仍然建议找台备用机。</p>
 <ol>
 <li>
 <p>设置无障碍，省电设置云云。</p>
@@ -123,8 +125,8 @@ OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，
 <p>撰写并运行脚本。</p>
 </li>
 </ol>
-<p>  脚本编写可以参考<a href="https://github.com/hlsky1988/WeChatCheckingIn">(Github)</a>，他是写Hamibot上的脚本的，可以参考借鉴思路。</p>
-<p>  以下是我的打卡脚本，网络上有人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了，不用去完善导航到打卡栏再点击打卡的操作。</p>
+<p>脚本编写可以参考<a href="https://github.com/hlsky1988/WeChatCheckingIn">(Github)</a>，他是写Hamibot上的脚本的，可以参考借鉴思路。</p>
+<p>以下是我的打卡脚本，网络上有人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了，不用去完善导航到打卡栏再点击打卡的操作。</p>
 <pre tabindex="0"><code>// 确保开启了Auto.js的无障碍服务
 auto.waitFor();
 
@@ -149,11 +151,13 @@ exit();
 </code></pre><p><strong>DONE.</strong></p>
 ]]></content:encoded>
     </item>
+    
     <item>
       <title>舞文弄墨</title>
-      <link>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
+      <link>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
       <pubDate>Mon, 30 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
+      
+      <guid>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
       <description>现代的青年愈发得迷失了。我也一样。所谓沉默，沉默的大多数。所谓嘈杂。一位看客，或许会好过突如其来的死亡吧。害怕失去害怕未知，害怕自己会对现实抱有期望
 听起来好像可笑的很。在一个青春中畏手畏脚，不敢做出承诺，也不怎么负责任。几年后回头看看，那会是庆幸还是懊悔？老者们责备，嘲笑年轻人的爱情，认为其只是源于欣赏，源于心理上虚假的自我幻想。青年人却嘲讽老者的“迂”，自以为能为另一半负起责任，能够互相包容。
 好像都有些偏激。
@@ -175,11 +179,13 @@ exit();
 <p>  中国人极善造神，造了再毁，毁了再造，乐此不疲。</p>
 ]]></content:encoded>
     </item>
+    
     <item>
       <title>牢骚</title>
-      <link>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</link>
+      <link>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</link>
       <pubDate>Sat, 28 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</guid>
+      
+      <guid>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</guid>
       <description>找回了我用于记录往事的笔记本，近来手头的书也都还没读完，就权且写一些旧东西吧。
 2023.5 思想总是跑在前面。他看得太远，比只能活在当下的身体还远得多。拿掉希望就是让思想重新回归身体，而且身体总有一天会腐烂。
 2023.10 &amp;hellip;
@@ -208,11 +214,13 @@ exit();
 <p>  神性的解放，人性的回归。</p>
 ]]></content:encoded>
     </item>
+    
     <item>
       <title>Blog Test</title>
-      <link>https://blog.nanimonai.org/posts/think/blog-test/</link>
+      <link>http://localhost:1313/posts/think/blog-test/</link>
       <pubDate>Thu, 28 Sep 2023 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/blog-test/</guid>
+      
+      <guid>http://localhost:1313/posts/think/blog-test/</guid>
       <description>这是我的第一篇文章</description>
       <content:encoded><![CDATA[<p><strong>Hello,world!</strong></p>
 <p>写下这些字时，我是一名迷茫的电脑小白，进入浩如烟海的赛博世界，越是走到深处越会觉得自己无知，觉得自己无从下手。</p>
@@ -233,11 +241,13 @@ exit();
 </ul>
 ]]></content:encoded>
     </item>
+    
     <item>
       <title>Link</title>
-      <link>https://blog.nanimonai.org/link/</link>
+      <link>http://localhost:1313/link/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/link/</guid>
+      
+      <guid>http://localhost:1313/link/</guid>
       <description>何必使用火刑具呢？他人，即地狱。</description>
       <content:encoded><![CDATA[<a target="_blank" href=https://blog.iceyear.eu.org title=Ice&#32;Year class="friendurl">
   <div class="frienddiv">
@@ -329,11 +339,13 @@ exit();
 </a>
 ]]></content:encoded>
     </item>
+    
     <item>
       <title>关于</title>
-      <link>https://blog.nanimonai.org/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/about/</guid>
+      
+      <guid>http://localhost:1313/about/</guid>
       <description>我是一个爱打游戏的老人，偶尔假装自己在努力学习
 本项目由 Hugo 生成
 主题 Paper 由 adityatelange 开发</description>
@@ -342,5 +354,8 @@ exit();
 <p>主题 <a href="https://github.com/adityatelange/hugo-Paper">Paper</a> 由 <a href="https://github.com/adityatelange">adityatelange</a> 开发</p>
 ]]></content:encoded>
     </item>
+    
+    
+    
   </channel>
 </rss>
