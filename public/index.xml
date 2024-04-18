@@ -6,7 +6,399 @@
     <description>Recent content on nanimonai&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 15 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Research on the principle of automatic punch-in</title>
+      <link>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</link>
+      <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</guid>
+      <description>这是什么 近日，打卡更新方式，由之前转移到了某一新平台上。求知欲驱使进行研究。写的不周，还请包含，同时我要非常感谢lockey中的一位热心朋友不厌其烦地为我指点迷津。
+如何实现 第一步 首先是获取签到的数据。不难看出，它采用rsa加密。
+先去官网下载.apk文件，而众所周知，.apk是一种压缩文件，所以直接解压出来，find一下，确实是rsa，然后思考如何拿到公钥。
+继续find寻找.pem，找到一个证书(本人搞到这里有点绷不住了，真的难绷），写py以还原出公钥：
+import OpenSSL.crypto cert_text = &amp;#34;&amp;#34;&amp;#34; -----BEGIN CERTIFICATE----- MIIFizCCA3OgAwIBAgIDAJY4MA0GCSqGSIb3DQEBCwUAMIGAMQswCQYDVQQGEwJD TjEQMA4GA1UECAwHQmVpamluZzEMMAoGA1UECgwDTVNBMREwDwYDVQQLDAhPQUlE X1NESzEeMBwGA1UEAwwVY29tLmJ1bi5taWl0bWRpZC5zaWduMR4wHAYJKoZIhvcN AQkBFg9tc2FAY2FpY3QuYWMuY24wHhcNMjQwMTA3MTQ0ODU1WhcNMjUwMTA3MTQ0 ODU1WjB9MQswCQYDVQQGEwJDTjEQMA4GA1UECAwHQmVpamluZzEQMA4GA1UEBwwH QmVpamluZzEQMA4GA1UECgwHd2phY2tlcjEWMBQGA1UEAwwNY29tLnlpYmFuLmFw cDEgMB4GCSqGSIb3DQEJARYRd2FuZ2ppZTJAeWliYW4uY24wggIiMA0GCSqGSIb3 DQEBAQUAA4ICDwAwggIKAoICAQCyGC9T3GW4BSsvnVNqb8+HlnjJAQvTPd7H13m1 f945uUsUYYMaaZuICYjb4qefZUyQgyxBUTYfBOTpE7ccdcNoZgCp05RTng30zvkc 4pjawJIkNeIC2NGlN7RquO4Ka/06LSuq5N+bfL78E0MwZAinoxSswf/yNY5R1LJ2 b3I7BnW7rVSb7KbB0Q4z5KmuJ04hPVl7BtSdfVnvnRVTBDRm/cMgyupEl+CCGW8H UejzPHdHeHRK1rx7fuwQI+5jgMmDYRNXZD4AmJ0vClurQR5avN2xOuxB8HbtB+lQ itsNnQCvYY1Xp4s7FtfmT6JzDNQ//vRgXxYrOaVFfoY/ugrO+SfZtqej+mdKR3Kg OaAA75t8zcJfM6WGrbPJl3xHc2bhD4kGwRkTAcHJ7WQOIrWz85CPCfIoYh8nZlBl sCNamJJh6Pl2nAtmnfMtDuYZJo/2QK6J/KFtywsYIekU6fiRsJaaunBf5sD9Ixbv JcRRB+HRCsySKYEg8z7Xlh90fHimfUgT0Gt44/o+nzPh7Cq9Ay6dWtMxYFx78Z1e papOJdUNpZWIET8wQHriJmbJ18TlidGRAW85kW2ka2cr4u6Ed68JQa+nN+kbS0dD euvOBGOsiqqCy5aeA0oz88HRWWIga02PLTZbEs4PdYrNzHWCISjnk34KpwwxYJUn 6Zpy1wIDAQABoxAwDjAMBgNVHRMBAf8EAjAAMA0GCSqGSIb3DQEBCwUAA4ICAQAk o30meLI9Un/7KoUekSMhterJ6K11cHKAa+WQqqzp8If+gIhjsyYk7Wf1fgStvoNu jILWSAfe2C2k74QrlVsUFXue2Ekc+eyDbUhwOi4rVju68/eu4HSpdIUbFQ7ZpivC adjw7qfN90sp6S+O/dDQ9SzUPBpjMQQ6ZvSTFv7TtZ1cjzOpcfogrDGyOe+mE5Rv xT3IaWFBcY2fe8lh+/7mJ27A5XgCka1LTZ2OFwI4d1gPWRhwi7R0p4rGhtmk2JJG viz1rPn8pBBeR5zcwHFuDAbL/1C9d6rZ5lajycrdPZzbcuFAzx7NPafiMsyMYwBK 9oQDIjS5UmfMt+lMFk37yCesFqxq/DOIPm1Hz3N1t5RpcZuwIkCzXYhtOkCbu9SZ xKqxztpcA5ySf3DWH4TIxKGXxIlC5pr2F4HsmKDIAO/1O6HXI0Bo+s/3KsDS/IMV nlqKu1WUKUZJebjN/CL61ChfHjkmogslgTkQpJnGsWsix3v0nBFjpbOm/oXYYMJy p+aMzppKaLx3mniXW/kimteNKu8EdeE7x/QeEIk5IUotfRPAeydVk9yqf+c4ClS9 YwVFAqIDzbC3nLBBXb36WNOoG+MFwWkjKoPhtIoLysTN1gNuFYUlJ1JptoP0Pe0I k5FWnRRk1vKUktYUfMJE4PQg4sWxZhGkKrGU5zVLsg== -----END CERTIFICATE----- &amp;#34;&amp;#34;&amp;#34; cert=OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert_text) public_key=OpenSSL.crypto.dump_publickey(OpenSSL.crypto.FILETYPE_PEM, cert.get_pubkey()).decode(&amp;#34;utf-8&amp;#34;) print(public_key) 得出公钥就够用了：
+第二步 获取易班的cookie，参考github可得：
+def auth(self): COOKIES = {} CSRF = &amp;#34;00000000000000000000000000000000&amp;#34; HEADERS = { &amp;#34;Origin&amp;#34;: &amp;#34;m.yiban.cn&amp;#34;, &amp;#34;origin&amp;#34;:&amp;#34;api.uyiban.com&amp;#34;, &amp;#34;origin&amp;#34;:&amp;#34;https://c.uyiban.com&amp;#34;, &amp;#34;authority&amp;#34;: &amp;#34;api.</description>
+      <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
+<p>近日，打卡更新方式，由之前转移到了某一新平台上。求知欲驱使进行研究。写的不周，还请包含，同时我要非常感谢lockey中的一位热心朋友不厌其烦地为我指点迷津。</p>
+<h1 id="如何实现">如何实现</h1>
+<h2 id="第一步">第一步</h2>
+<p>首先是获取签到的数据。不难看出，它采用rsa加密。</p>
+<p><img loading="lazy" src="https://img.nanimonai.org/bunan.png" alt=""  />
+</p>
+<p>先去官网下载.apk文件，而众所周知，.apk是一种压缩文件，所以直接解压出来，find一下，确实是rsa，然后思考如何拿到公钥。</p>
+<p>继续find寻找.pem，找到一个证书(本人搞到这里有点绷不住了，真的难绷），写py以还原出公钥：</p>
+<p><img loading="lazy" src="https://img.nanimonai.org/pem.png" alt=""  />
+</p>
+<pre tabindex="0"><code>import OpenSSL.crypto
+
+cert_text = &#34;&#34;&#34;
+-----BEGIN CERTIFICATE-----
+MIIFizCCA3OgAwIBAgIDAJY4MA0GCSqGSIb3DQEBCwUAMIGAMQswCQYDVQQGEwJD
+TjEQMA4GA1UECAwHQmVpamluZzEMMAoGA1UECgwDTVNBMREwDwYDVQQLDAhPQUlE
+X1NESzEeMBwGA1UEAwwVY29tLmJ1bi5taWl0bWRpZC5zaWduMR4wHAYJKoZIhvcN
+AQkBFg9tc2FAY2FpY3QuYWMuY24wHhcNMjQwMTA3MTQ0ODU1WhcNMjUwMTA3MTQ0
+ODU1WjB9MQswCQYDVQQGEwJDTjEQMA4GA1UECAwHQmVpamluZzEQMA4GA1UEBwwH
+QmVpamluZzEQMA4GA1UECgwHd2phY2tlcjEWMBQGA1UEAwwNY29tLnlpYmFuLmFw
+cDEgMB4GCSqGSIb3DQEJARYRd2FuZ2ppZTJAeWliYW4uY24wggIiMA0GCSqGSIb3
+DQEBAQUAA4ICDwAwggIKAoICAQCyGC9T3GW4BSsvnVNqb8+HlnjJAQvTPd7H13m1
+f945uUsUYYMaaZuICYjb4qefZUyQgyxBUTYfBOTpE7ccdcNoZgCp05RTng30zvkc
+4pjawJIkNeIC2NGlN7RquO4Ka/06LSuq5N+bfL78E0MwZAinoxSswf/yNY5R1LJ2
+b3I7BnW7rVSb7KbB0Q4z5KmuJ04hPVl7BtSdfVnvnRVTBDRm/cMgyupEl+CCGW8H
+UejzPHdHeHRK1rx7fuwQI+5jgMmDYRNXZD4AmJ0vClurQR5avN2xOuxB8HbtB+lQ
+itsNnQCvYY1Xp4s7FtfmT6JzDNQ//vRgXxYrOaVFfoY/ugrO+SfZtqej+mdKR3Kg
+OaAA75t8zcJfM6WGrbPJl3xHc2bhD4kGwRkTAcHJ7WQOIrWz85CPCfIoYh8nZlBl
+sCNamJJh6Pl2nAtmnfMtDuYZJo/2QK6J/KFtywsYIekU6fiRsJaaunBf5sD9Ixbv
+JcRRB+HRCsySKYEg8z7Xlh90fHimfUgT0Gt44/o+nzPh7Cq9Ay6dWtMxYFx78Z1e
+papOJdUNpZWIET8wQHriJmbJ18TlidGRAW85kW2ka2cr4u6Ed68JQa+nN+kbS0dD
+euvOBGOsiqqCy5aeA0oz88HRWWIga02PLTZbEs4PdYrNzHWCISjnk34KpwwxYJUn
+6Zpy1wIDAQABoxAwDjAMBgNVHRMBAf8EAjAAMA0GCSqGSIb3DQEBCwUAA4ICAQAk
+o30meLI9Un/7KoUekSMhterJ6K11cHKAa+WQqqzp8If+gIhjsyYk7Wf1fgStvoNu
+jILWSAfe2C2k74QrlVsUFXue2Ekc+eyDbUhwOi4rVju68/eu4HSpdIUbFQ7ZpivC
+adjw7qfN90sp6S+O/dDQ9SzUPBpjMQQ6ZvSTFv7TtZ1cjzOpcfogrDGyOe+mE5Rv
+xT3IaWFBcY2fe8lh+/7mJ27A5XgCka1LTZ2OFwI4d1gPWRhwi7R0p4rGhtmk2JJG
+viz1rPn8pBBeR5zcwHFuDAbL/1C9d6rZ5lajycrdPZzbcuFAzx7NPafiMsyMYwBK
+9oQDIjS5UmfMt+lMFk37yCesFqxq/DOIPm1Hz3N1t5RpcZuwIkCzXYhtOkCbu9SZ
+xKqxztpcA5ySf3DWH4TIxKGXxIlC5pr2F4HsmKDIAO/1O6HXI0Bo+s/3KsDS/IMV
+nlqKu1WUKUZJebjN/CL61ChfHjkmogslgTkQpJnGsWsix3v0nBFjpbOm/oXYYMJy
+p+aMzppKaLx3mniXW/kimteNKu8EdeE7x/QeEIk5IUotfRPAeydVk9yqf+c4ClS9
+YwVFAqIDzbC3nLBBXb36WNOoG+MFwWkjKoPhtIoLysTN1gNuFYUlJ1JptoP0Pe0I
+k5FWnRRk1vKUktYUfMJE4PQg4sWxZhGkKrGU5zVLsg==
+-----END CERTIFICATE-----
+&#34;&#34;&#34;
+
+cert=OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert_text)
+
+public_key=OpenSSL.crypto.dump_publickey(OpenSSL.crypto.FILETYPE_PEM, cert.get_pubkey()).decode(&#34;utf-8&#34;)
+
+print(public_key)
+</code></pre><p>得出公钥就够用了：</p>
+<p><img loading="lazy" src="https://img.nanimonai.org/rsa.png" alt=""  />
+</p>
+<h2 id="第二步">第二步</h2>
+<p>获取易班的cookie，参考github可得：</p>
+<pre tabindex="0"><code>
+def auth(self):
+    COOKIES = {}
+    CSRF = &#34;00000000000000000000000000000000&#34;
+    HEADERS = {
+        &#34;Origin&#34;: &#34;m.yiban.cn&#34;,
+        &#34;origin&#34;:&#34;api.uyiban.com&#34;,
+        &#34;origin&#34;:&#34;https://c.uyiban.com&#34;,
+        &#34;authority&#34;: &#34;api.uyiban.com&#34;,
+        &#34;AppVersion&#34;: &#34;5.0.17&#34;,
+        &#34;x-requested-with&#34;: &#34;com.yiban.app&#34;,
+        &#34;user-agent&#34;:&#34;Mozilla/5.0 (Linux; Android 12; XIAOMI Build/SKQ1.211006.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/112.0.5615.48 Mobile Safari/537.36;webank/h5face;webank/1.0 yiban_android/5.0.17&#34;
+        }
+    iapp = requests.get(&#34;http://f.yiban.cn/iapp/index?act=iapp7463&#34;, headers=HEADERS, allow_redirects=False, cookies=COOKIES) # 利用 loginToken 访问获取 verifyRequest跳转数据
+    # 此处cookie带有 &#34;loginToken&#34; = “cdd6d4432743414c9e1faf3e792*****”
+    act = iapp.headers[&#34;Location&#34;] # 返回302跳转目标
+    verifyRequest = re.findall(r&#34;verify_request=(.*?)&amp;&#34;, act)[0] # 正则取302跳转目标，得到 verify_request 数据
+    json = requests.get(&#34;https://api.uyiban.com/base/c/auth/yiban?verifyRequest=&#34; + verifyRequest + &#34;&amp;CSRF=&#34; + CSRF, headers=HEADERS, allow_redirects=False, cookies={&#39;csrf_token&#39;: CSRF})
+    cookies = requests.utils.dict_from_cookiejar(json.cookies) # 获取cookie
+    Attendancecookies = cookies # 签到cookies赋值self.Attendancecookies
+    print(&#39;Location:&#39;,act,&#34;\n&#34;)
+    print(&#39;cookies:&#39;,Attendancecookies,&#34;\n&#34;)
+    
+    ###打印数据：
+    Location: https://c.uyiban.com/#/?verify_request=c9e814****53de92ccc&#39;, &#39;cpi&#39;: &#39;eyJD******%3D%3D&#39;, &#39;is_certified&#39;: &#39;1&#39;}    
+    cookies: {&#39;PHPSESSID&#39;: &#39;fa1a28bc38cc**c4b1e87a8ce51f****&#39;, &#39;cpi&#39;: &#39;eyJDaG**%3D%3D&#39;, &#39;is_certified&#39;: &#39;1&#39;}
+</code></pre><p>All right. 现在只需要PHPSESSID.</p>
+<h2 id="第三步">第三步</h2>
+<p>进行ADB调试，其中挺复杂的。首先你PC得有Chrome，我Linux上面用的是Chromium。第一次尝试的时候移动端使用的是旧版本的Kiwi Browser，导致chrome://inspect/#devices这个界面没有inspect fallback选项。更新就行了</p>
+<p><img loading="lazy" src="https://img.nanimonai.org/404.png" alt=""  />
+</p>
+<p>在kiwi上找到Network Conditions，把用户代理叉掉并自定义写上MicroMessenger</p>
+<p><img loading="lazy" src="https://img.nanimonai.org/network.png" alt=""  />
+</p>
+<p>这个其实可以直接在控制台输入命令获取（忘记截图了，可以自己去试一下）：</p>
+<pre tabindex="0"><code>console.log(&#34;User-Agent:&#34;, navigator.userAgent);
+</code></pre><p><img loading="lazy" src="https://img.nanimonai.org/gongzuotai.png" alt=""  />
+
+<img loading="lazy" src="https://img.nanimonai.org/yes.png" alt=""  />
+</p>
+<p>直接从中间几个开始分析（其实是依葫芦画瓢），能够成功找到https://api.uyiban.com/nightAttendance/student/index/signIn?CSRF=&hellip;以及https://api.uyiban.com/nightAttendance/student/index/signPosition?CSRF=&hellip;</p>
+<p>这样就可以进行测试，API 是 RESTful 标准。从登录开始追踪，使用curl去调试。</p>
+<p>错误的都是{&lsquo;code&rsquo;: 500, &lsquo;msg&rsquo;: &lsquo;非法签到&rsquo;, &lsquo;data&rsquo;: None}	0.0</p>
+<p>签到成功会返回{&lsquo;code&rsquo;: 0, &lsquo;msg&rsquo;: &lsquo;&rsquo;, &lsquo;data&rsquo;: True}</p>
+<h2 id="第四步-前人的智慧">第四步 前人的智慧！</h2>
+<p>脚本是大爱无私宽仁的Mike修改的，最初版是来自<a href="https://webcache.googleusercontent.com/search?q=cache:https%3A%2F%2Fwcyuns.cn%2Farchives%2F%25E6%2598%2593%25E7%258F%25AD%25E6%2599%259A%25E7%25AD%25BE%25E8%2584%259A%25E6%259C%25AC">this</a>思路也是借鉴于此，算是一个复现。真所谓巧夺天工，令人敬佩！</p>
+<pre tabindex="0"><code>import json
+import re
+import sys
+import os
+import pickle
+import time
+import urllib
+import jsonpath
+from urllib import parse
+import random
+import requests
+import numpy
+import base64
+import msvcrt
+try:
+    from Crypto.Cipher import PKCS1_v1_5
+    from Crypto.PublicKey import RSA
+except ModuleNotFoundError:
+    print(&#34;缺少pycryptodome依赖！程序将尝试安装依赖！&#34;)
+    os.system(&#34;pip3 install pycryptodome -i https://pypi.tuna.tsinghua.edu.cn/simple&#34;)
+    os.execl(sys.executable, &#39;python3&#39;, __file__, *sys.argv)
+
+def encryptPassword(pwd): # 登录密码加密
+    # 密码加密
+    PUBLIC_KEY = &#39;&#39;&#39;-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAzq0rgsM++ZxLRGHpdfre
+Hu6UXhdlUS5P2WOxRG14qU8/iWSb/CkOqgOl8AGcOhlthkvolCdpUvVcVsVUxBv0
+YRN0Jb64zPrn5aLVwQT4RJn5tXvoqLdHIXis7pljXAMDPVZOVlWJkDMk8YU6HDaA
+MqsD6l5p9lg2LMP4OhMgaPX+CkO370LB5vRjJTHp03n+IqfxXoC7DEd+kxRIEM2C
+EDgUSYDJBDgwBvGALZmvB/a1b0im9t1P/EmnuE7uN9NRFoWyVpOiEwo/Ti7rmJGf
+qNT3vvtfWo4nXsm1rYQXsPayoKDSRaba3gFY/1SYWLAuSO2q2da5ZCcsAk5RKy0V
+c1hUg8n6y0YLAvuzoXY5VyNMXkhH5Zc5Kg64b5RxILeZpZG0MV7GFY3sw//k7SNg
+darKT8A0Iv3l3lfguX3HNi6dkf97kS/EiA0tbkIB/JNjv13mq8HL7LijRt2hkKqP
+PhQW88xC/exZilU5pAavoZOPuZIOTUHqtpRq4ZeKl+wDf+e5lPYFDpihWGjplGpa
+4BOSmGeo/SyVFPji9QF4Pk0DRJF/NjwJoAC60xHAVt5Z4gQSOOOjNZDCswA0ry2L
+e8m5cv5vPGY75uVrGqALQ6Xm961PPc5cJ1q7tmEZMj+z5HE7tgAdhiPI6acKgrAv
++1k4N0OVqKamMS+PVpD05hUCAwEAAQ==
+-----END PUBLIC KEY-----&#39;&#39;&#39;
+    cipher = PKCS1_v1_5.new(RSA.importKey(PUBLIC_KEY))
+    cipher_text = base64.b64encode(cipher.encrypt(bytes(pwd, encoding=&#34;utf8&#34;)))
+    return cipher_text.decode(&#34;utf-8&#34;)
+####################################################################################################################################################################################################
+####################################################################################################################################################################################################
+
+class yiban:
+    COOKIES = {}
+    def __init__(self, mobile, password): # 全局变量
+        self.mobile = mobile # 登录手机号
+        self.password = password # 登录密码
+        self.session = requests.session()
+        self.HEADERS = {
+            &#34;Origin&#34;: &#34;m.yiban.cn&#34;,
+            &#34;origin&#34;:&#34;api.uyiban.com&#34;,
+            &#34;origin&#34;:&#34;https://c.uyiban.com&#34;,
+            &#34;authority&#34;: &#34;api.uyiban.com&#34;,
+            &#34;AppVersion&#34;: &#34;5.1.2&#34;,
+            &#34;x-requested-with&#34;: &#34;com.yiban.app&#34;,
+            &#34;user-agent&#34;:&#34;Mozilla/5.0 (Linux; Android 12; Redmi K30 Pro Build/SKQ1.211006.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/112.0.5615.48 Mobile Safari/537.36;webank/h5face;webank/1.0 yiban_android/5.0.17&#34;
+            }
+        self.Attendancecookies = {}
+        self.CSRF = &#34;00000000000000000000000000000000&#34;
+
+    def login(self): # 登录
+        params = {
+            &#34;mobile&#34;: self.mobile, #登录手机号
+            &#34;password&#34;: encryptPassword(self.password), #RSA加密后的登录密码
+            &#34;ct&#34;: &#34;2&#34;, #固定参数
+            &#34;identify&#34;: &#34;0&#34;, #固定参数
+        }
+        # 配置登录数据
+        response = requests.post(&#34;https://m.yiban.cn/api/v4/passport/login&#34;, data=params, allow_redirects=False, cookies=self.COOKIES, headers=self.HEADERS).json()
+        if response is not None and response[&#34;response&#34;] == 100:
+            self.access_token = response[&#34;data&#34;][&#34;access_token&#34;]
+            self.HEADERS[&#34;Authorization&#34;] = &#34;Bearer &#34; + self.access_token
+            # 增加cookie
+            self.COOKIES[&#34;loginToken&#34;] = self.access_token
+            print(&#39;用户信息:&#39;,response,&#34;\n&#34;)
+            print(&#39;loginToken:&#39;,self.access_token,&#34;\n&#34;)
+            print(&#39;用户姓名:&#39;,response[&#34;data&#34;][&#34;user&#34;][&#34;name&#34;],&#34;\n手机号码：&#34;,response[&#34;data&#34;][&#34;user&#34;][&#34;phone&#34;])
+            return 1
+        else:
+            print(response)
+            return self.mobile
+        #返回https://f.yiban.cn/iapp/index?act=iapp7463所需的Cookie“loginToken=ce196e5fb2900bc35b44e1f1b4ed****”
+
+
+        #通过获取的loginToken访问iapp后台得到值verifyRequest
+        #利用verifyRequest访问api获取签到用的cookie
+        #返回cookie内容范例
+        #{&#39;PHPSESSID&#39;: &#39;1aef34b976315dca8400711255f1a9af&#39;, &#39;cpi&#39;: &#39;eyJDaGFubmVsIjoieWliYW......TliNWViZTUxYWMifQ%3D%3D&#39;, &#39;is_certified&#39;: &#39;1&#39;}
+        #PHPSESSID为关键值，有这一个参数就可以访问签到等相关内容
+        #cpi 使用base64编码 有个人相关信息
+    def auth(self): # 获取签到cookie
+        iapp = requests.get(&#34;http://f.yiban.cn/iapp/index?act=iapp7463&#34;, headers=self.HEADERS, allow_redirects=False, cookies=self.COOKIES) # 利用 loginToken 访问获取 verifyRequest
+        act = iapp.headers[&#34;Location&#34;] # 返回302跳转目标
+        verifyRequest = re.findall(r&#34;verify_request=(.*?)&amp;&#34;, act)[0] # 正则取302跳转目标，得到 verify_request 数据
+        json = requests.get(&#34;https://api.uyiban.com/base/c/auth/yiban?verifyRequest=&#34; + verifyRequest + &#34;&amp;CSRF=&#34; + self.CSRF, headers=self.HEADERS, allow_redirects=False, cookies={&#39;csrf_token&#39;: self.CSRF})
+        #访问api获取cookie CSRF值按此可用，只验证位数
+        cookies = requests.utils.dict_from_cookiejar(json.cookies) # 获取cookie
+        self.Attendancecookies = cookies # 签到cookies赋值self.Attendancecookies
+        print(&#39;Location:&#39;,act,&#34;\n&#34;)
+        print(&#39;cookies:&#39;,self.Attendancecookies,&#34;\n&#34;)
+        return
+
+    def authorization(self, testauth): # 授权校本化
+        self.testauth = testauth
+        authhtml = requests.get(&#34;https://oauth.yiban.cn/code/html?client_id=95626fa3080300ea&amp;redirect_uri=https://f.yiban.cn/iapp7463&#34;) # 利用 loginToken 访问获取 verifyRequest
+        HTML_PUBLIC_KEY = re.search(&#39;&lt;input type=&#34;test&#34; id=&#34;key&#34; value=&#34;((?:.|\n)+)?&#34; style=&#34;display:none&#34;&gt;&#39;,authhtml.text)[1] # 获取网页签到加密 password 证书
+        webcookies = requests.utils.dict_from_cookiejar(authhtml.cookies) # 获取校本化授权 cookie    登录需要
+        print()
+        print(&#34;获取的网页cookie:&#34;,webcookies)
+        print(&#34;获取的网页加密证书:&#34;,HTML_PUBLIC_KEY,&#34;\n&#34;)
+        HTML_cipher = PKCS1_v1_5.new(RSA.importKey(HTML_PUBLIC_KEY))
+        HTML_cipher_text = base64.b64encode(HTML_cipher.encrypt(bytes(self.password, encoding=&#34;utf8&#34;)))
+        HTML_cipher_decode = HTML_cipher_text.decode(&#34;utf-8&#34;)
+        print(&#34;密码网页加密结果:&#34;,HTML_cipher_decode)
+        webparams = {
+            &#34;oauth_uname&#34;: self.mobile , # 账号
+            &#34;oauth_upwd&#34;: HTML_cipher_decode , # 加密后密码
+            &#34;client_id&#34;: &#34;95626fa3080300ea&#34;, # 应用端编号
+            &#34;redirect_uri&#34;: &#34;http://f.yiban.cn/iapp7463&#34;, # 应用端回调地址
+            }
+        webauth = requests.post(&#34;https://oauth.yiban.cn/code/usersure&#34;, data=webparams, cookies=webcookies, headers=self.HEADERS).json()
+        print(&#34;授权结果&#34;,webauth,&#34;\n&#34;)
+        print(&#34;授权成功，返回获取签到信息中...&#34;)
+        return
+
+    def signPosition(self):
+        Position = requests.get(&#34;https://api.uyiban.com/nightAttendance/student/index/signPosition?CSRF=&#34; + self.CSRF, allow_redirects=False, cookies={&#39;PHPSESSID&#39;: self.Attendancecookies[&#39;PHPSESSID&#39;], &#39;csrf_token&#39;: self.CSRF}, headers=self.HEADERS).json()
+        if Position[&#34;code&#34;] == 0: # 判断是否登录成功
+            print(&#34;校本化已授权，有晚签任务\n&#34;)
+            print(&#34;可签到数据:&#34;,Position,&#34;\n&#34;)
+            State=Position[&#34;data&#34;][&#34;State&#34;] # 获取状态码
+            Msg=Position[&#34;data&#34;][&#34;Msg&#34;] # 获取返回信息
+            StartTime=Position[&#34;data&#34;][&#34;Range&#34;][&#34;StartTime&#34;] # 获取签到开始时间
+            self.StartTime =  StartTime
+            EndTime=Position[&#34;data&#34;][&#34;Range&#34;][&#34;EndTime&#34;] # 获取签到结束时间
+            pause = StartTime - int(time.time()) # 获取系统现在时间
+            if State == 2: # 没有签到任务 如学校没有晚签
+                print(&#34;您&#34;,Position[&#34;data&#34;][&#34;Msg&#34;])
+                return
+            else:
+                if State == 3: # 已签到
+                    print(&#34;[*] 签到接口返回数据：&#34;,Position[&#34;data&#34;][&#34;Msg&#34;])
+                    return
+                else:
+                    self.Address=jsonpath.jsonpath(Position,&#39;$...Address&#39;)[0] # 获取可签到位置 地址
+                    self.LngLat=jsonpath.jsonpath(Position,&#39;$...LngLat&#39;)[0] # 获取可签到位置 经纬度
+                    self.lonss = &#39;%.6f&#39; %float(round(float(self.LngLat.split(&#34;,&#34;)[0]),3) + float(random.uniform(0.000100,0.000999))) # 根据地址随机修改经度后3位，达到每次定位位置不一样
+                    self.latss = &#39;%.6f&#39; %float(round(float(self.LngLat.split(&#34;,&#34;)[1]),3) + float(random.uniform(0.000100,0.000999))) # 根据地址随机修改纬度后3位，达到每次定位位置不一样
+                    if State == 0: # 已经到达签到时间
+                        print(&#34;可以签到，立即执行！\n&#34;)
+                        self.nightAttendance() # 签到跳转
+                    else:
+                        if State == 1: # 还未开始签到
+                            pause = StartTime - int(time.time()) # 获取剩余时间
+                            while pause &gt;= 60 :
+                                list = [&#34;\\&#34;, &#34;|&#34;, &#34;/&#34;, &#34;—&#34;]
+                                index = pause % 4
+                                print(&#34;[*] 距签到时间还有 {} 秒 {}&#34;.format(pause,list[index]), end=&#34;\r&#34;, flush=True)
+                                pause = StartTime - int(time.time())
+                                time.sleep(1)
+                            else:
+                                while pause &lt;= 60 and pause &gt;=10 :
+                                    print(&#34;[*] 距签到时间还有 {} 秒 {}&#34;.format(pause,list[index]), end=&#34;\r&#34;, flush=True)
+                                    pause = StartTime - int(time.time())
+                                    time.sleep(0.5)
+                                else:
+                                    while pause &lt;= 10 :
+                                        print(&#34;[*] 距签到时间还有 {} 秒 {}&#34;).format(pause,list[index], end=&#34;\r&#34;, flush=True)
+                                        pause = StartTime - int(time.time())
+                                        while pause &lt;= 0.25 :
+                                            print(&#34;到达签到时间！&#34;)
+                                            self.nightAttendance() # 签到跳转
+                                            return
+                                        time.sleep(0.25)
+            if Position[&#34;code&#34;] == 999:
+                print(&#34;[*] 晚签信息获取失败\n[*] 有可能是校本化未授权或您的签到页面非本脚本所适配&#34;)
+                self.authorization()
+        return
+
+    def nightAttendance(self): # 执行签到
+        paramss = {
+            &#34;Code&#34;: &#34;&#34;,
+            &#34;PhoneModel&#34;: &#34;&#34;,
+            &#34;SignInfo&#34;: &#39;{&#34;Reason&#34;:&#34;&#34;,&#34;AttachmentFileName&#34;:&#34;&#34;,&#34;LngLat&#34;:&#34;&#39; + self.lonss + &#39;,&#39; + self.latss + &#39;&#34;,&#34;Address&#34;:&#34;&#39; + self.Address + &#39;&#34;}&#39;,
+            &#34;OutState&#34;: &#34;1&#34;
+            }
+        nightsign = requests.post(&#34;https://api.uyiban.com/nightAttendance/student/index/signIn?CSRF=&#34; + self.Attendancecookies[&#39;PHPSESSID&#39;], data=paramss, cookies={&#39;csrf_token&#39;: self.Attendancecookies[&#39;PHPSESSID&#39;], &#39;PHPSESSID&#39;: self.Attendancecookies[&#39;PHPSESSID&#39;]}, headers=self.HEADERS).json()
+        print(&#34;签到返回数据:&#34;,nightsign)
+        #print(nightsign)
+        return self.signPosition() # 跳转回signPosition验证是否签到成功
+
+    def loginin(self): # 登陆校验
+        # 应当先判断列表账号是否都能正常登陆
+        loginin = self.login() # 登录
+        if loginin != 1:
+            print(&#34;用户&#34;,loginin,&#34;登陆失败，请处理&#34;)
+            print(&#34;按任意键退出脚本&#34;)
+            ord(msvcrt.getch())
+            sys.exit()
+        self.authorization(0) # 校本化授权先执行
+        return
+
+    def setall(self): # 多人签到
+        loginin = self.login() # 登录
+        self.auth() # 授权
+        self.signPosition() # 判断能否签到&amp;自动跳转签到
+        #self.authorization(0) # 校本化授权 已写入
+        return
+def save_accounts(accounts):
+    with open(&#34;accounts.txt&#34;, &#34;w&#34;) as f:
+        for account in accounts:
+            f.write(f&#34;{account.mobile},{account.password}\n&#34;)
+def load_accounts():
+    accounts = []
+    if os.path.exists(&#34;accounts.txt&#34;):
+        with open(&#34;accounts.txt&#34;, &#34;r&#34;) as f:
+            for line in f:
+                mobile, password = line.strip().split(&#39;,&#39;)
+                accounts.append(yiban(mobile, password))
+    return accounts
+def display_accounts(accounts):
+    print(&#34;当前账户列表:&#34;)
+    for idx, account in enumerate(accounts, start=1):
+        print(f&#34;{idx}. {account.mobile}&#34;)
+
+
+def main():
+    accounts = load_accounts()
+    action = &#39;继续&#39;
+
+    while action.lower() == &#39;继续&#39;:
+        display_accounts(accounts)
+        choice = input(&#34;要修改或增加账号吗？(修改/增加/执行): &#34;)
+
+        if choice.lower() == &#39;修改&#39;:
+            index = int(input(&#34;请输入要修改的账号序号: &#34;)) - 1
+            if 0 &lt;= index &lt; len(accounts):
+                new_mobile = input(&#34;输入新的手机号: &#34;)
+                new_password = input(&#34;输入新的密码: &#34;)
+                accounts[index] = yiban(new_mobile, new_password)
+                save_accounts(accounts)
+                print(&#34;账户已更新&#34;)
+        elif choice.lower() == &#39;增加&#39;:
+            num_new_accounts = int(input(&#34;请输入要增加的账户数: &#34;))
+            for _ in range(num_new_accounts):
+                mobile = input(&#34;请输入新手机号: &#34;)
+                password = input(&#34;请输入新密码: &#34;)
+                accounts.append(yiban(mobile, password))
+            save_accounts(accounts)
+            print(&#34;新账户已添加&#34;)
+        elif choice.lower() == &#39;执行&#39;:
+            break
+
+        action = input(&#34;是否继续修改或增加账户？(继续/执行): &#34;)
+
+    for account in accounts:
+        account.loginin()
+    time.sleep(0.5)
+    print(&#34;#签到检查通过#################\n&#34;)
+    for account in accounts:
+        account.setall()
+    time.sleep(0.1)
+    print(&#34;##############################&#34;)
+    print(&#34;签到任务已执行完成！&#34;)
+    sys.exit()
+
+
+if __name__ == &#34;__main__&#34;:
+    main()
+</code></pre><p><strong>DONE.</strong></p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Smart car - freshman trash version</title>
       <link>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</link>
@@ -15,9 +407,9 @@
       <guid>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</guid>
       <description>这是什么 2024校EEA举办无人车的循迹避障赛。欣然规往。
 为什么去做这个 兴趣啊，混蛋！难道还是为了什么生计什么未来什么饭碗而去的嘛？
-咋做的 刚开始和队友是有甚大的意淫的，企图先整个初号机出来，选方案就选了挺久，然后参考了很多，车架也是上便宜点的亚克力，循迹依靠pwm调值，随便整个五路红外循迹接个面包板在来三节电池代码写写就完事。二代机直接上PID然后再优化机械结构，换更好电机之类的。
-事实上发现，这调试的东西也太多了。实现代码逻辑就得有不同的思路，前期兴致勃勃到了后期就是坚持为王，能坚持就是成功，代码从开始的立志优化到最完美，到后来的能跑就行，一优化就又g了。不停的测试和排查故障是会令人烦躁的，例如：我误读要求以为要循迹两圈，然后抓耳挠腮写检测逻辑，最后基于队友原来代码些写的是：
-void loop() { if(digitalRead(Button) == 0){ if (i &amp;lt; 5){ if(distance &amp;gt;25){ delay(10); xunxian(); } else{ bizhang(); } } else{ Motor(0, 0); } } else{ Motor(0,0); } } ... xunxian() ... else if (SL2 == 0 &amp;amp;&amp;amp; SL1 == 0 &amp;amp;&amp;amp; SR1 == 0 &amp;amp;&amp;amp; SR2 == 0 &amp;amp;&amp;amp; (SR3 == 0 || SL3 == 0)) { Motor(108+v,118+v); delay(10); i++; } ... 这样一坨我也不知道怎么形容的构思，直接给队友后面调车造成很大的困扰，虽然最后发现是电池电不够了。但是在一个无力的情况下只能去改变当时所能改变的东西，还是很无力的。</description>
+咋做的 刚开始和队友是有甚大的意淫的，企图先整个初号机出来，选方案就选了挺久，然后参考了很多用nano主控，车架也是上便宜的亚克力，循迹依靠pwm调值，随便整个五路红外循迹接个面包板在来三节电池代码写写就完事。二代机直接上PID然后再优化机械结构，换更好电机之类的。
+事实上发现，这调试的东西也太多了。问题很多，情况非常多，是一开始所预想不到的。实现代码逻辑就得有不同的思路，前期兴致勃勃到，后期就是坚持就是成功，代码从开始的立志优化到最完美，到后来的能跑就行，一优化就又g了。不停的测试和排查故障是会令人烦躁的，例如：我误读要求以为要循迹两圈，然后抓耳挠腮写检测逻辑，最后基于队友原来代码写的是：
+void loop() { if(digitalRead(Button) == 0){ if (i &amp;lt; 5){ if(distance &amp;gt;25){ delay(10); xunxian(); } else{ bizhang(); } } else{ Motor(0, 0); } } else{ Motor(0,0); } } ... xunxian() ... else if (SL2 == 0 &amp;amp;&amp;amp; SL1 == 0 &amp;amp;&amp;amp; SR1 == 0 &amp;amp;&amp;amp; SR2 == 0 &amp;amp;&amp;amp; (SR3 == 0 || SL3 == 0)) { Motor(108+v,118+v); delay(10); i++; } ... 这样一坨我也不知道怎么形容的构思，直接给队友后面调车造成很大的困扰，虽然最后发现是电池电快无了，导致循迹都出现问题带不动电机转向。</description>
       <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
 <p>2024校EEA举办无人车的循迹避障赛。欣然规往。</p>
 <p><img loading="lazy" src="https://img.nanimonai.org/map.jpg" alt="Map."  />
@@ -25,10 +417,10 @@ void loop() { if(digitalRead(Button) == 0){ if (i &amp;lt; 5){ if(distance &amp;
 <h1 id="为什么去做这个">为什么去做这个</h1>
 <p>兴趣啊，混蛋！难道还是为了什么生计什么未来什么饭碗而去的嘛？</p>
 <h1 id="咋做的">咋做的</h1>
-<p>刚开始和队友是有甚大的意淫的，企图先整个初号机出来，选方案就选了挺久，然后参考了很多，车架也是上便宜点的亚克力，循迹依靠pwm调值，随便整个五路红外循迹接个面包板在来三节电池代码写写就完事。二代机直接上PID然后再优化机械结构，换更好电机之类的。</p>
-<p><img loading="lazy" src="https://img.nanimonai.org/choulou.jpg" alt=""  />
+<p>刚开始和队友是有甚大的意淫的，企图先整个初号机出来，选方案就选了挺久，然后参考了很多用nano主控，车架也是上便宜的亚克力，循迹依靠pwm调值，随便整个五路红外循迹接个面包板在来三节电池代码写写就完事。二代机直接上PID然后再优化机械结构，换更好电机之类的。</p>
+<p><img loading="lazy" src="https://img.nanimonai.org/choulou.png" alt=""  />
 </p>
-<p>事实上发现，这调试的东西也太多了。实现代码逻辑就得有不同的思路，前期兴致勃勃到了后期就是坚持为王，能坚持就是成功，代码从开始的立志优化到最完美，到后来的能跑就行，一优化就又g了。不停的测试和排查故障是会令人烦躁的，例如：我误读要求以为要循迹两圈，然后抓耳挠腮写检测逻辑，最后基于队友原来代码些写的是：</p>
+<p>事实上发现，这调试的东西也太多了。问题很多，情况非常多，是一开始所预想不到的。实现代码逻辑就得有不同的思路，前期兴致勃勃到，后期就是坚持就是成功，代码从开始的立志优化到最完美，到后来的能跑就行，一优化就又g了。不停的测试和排查故障是会令人烦躁的，例如：我误读要求以为要循迹两圈，然后抓耳挠腮写检测逻辑，最后基于队友原来代码写的是：</p>
 <pre tabindex="0"><code>void loop() {
   if(digitalRead(Button) == 0){
     if (i &lt; 5){
@@ -58,14 +450,14 @@ else if (SL2 == 0 &amp;&amp; SL1 == 0 &amp;&amp; SR1 == 0 &amp;&amp; SR2 == 0 &a
     i++;
   }
 ...
-</code></pre><p>这样一坨我也不知道怎么形容的构思，直接给队友后面调车造成很大的困扰，虽然最后发现是电池电不够了。但是在一个无力的情况下只能去改变当时所能改变的东西，还是很无力的。</p>
-<p>也有那种不知道要怎么改的问题，尝试过五路红外和光电之后都不行，那个b传感器不稳定于是乎就有一堆的误判，然后就谜之操作。后来直接上了六路灰度直接爽飞，进入下一个阶段的debug。<br>
+</code></pre><p>这样一坨我也不知道怎么形容的构思，直接给队友后面调车造成很大的困扰，虽然最后发现是电池电快无了，导致循迹都出现问题带不动电机转向。</p>
+<p>尝试过五路红外和光电之后都不行，那个b传感器不稳定于是乎就有一堆的误判，然后就谜之操作。后来直接上了六路灰度直接爽飞，进入下一个阶段的debug。
 <img loading="lazy" src="https://img.nanimonai.org/car.jpg" alt=""  />
 </p>
-<p>其实，笔者觉得不管是竞赛还是折腾东西，就是一个盛大的debug过程。世界就是一个巨大的草台班子，你要有一定的抗压能力和纠错能力，再加以一定的细心和系统的学习。这个东西笔者恰好有一点点，长期的游戏生活让我练就了被队友嬉笑怒骂不形于色的本领，我可以保证不首先使用言语攻击假想敌的家人，也保证不第一个给队友上压力。其次菜了得承认，队友骂我如果我是真的菜我得道歉，这可以挽回一点点队友的游戏体验。最后，要有一颗折腾的心，这方面可能EOS教会我的更多一些，我遇见了不同种类，不同方式的问题刁难，有一些是很值得记录下来的，我以后也一定趁着自己还清醒要写文章记录一下，说不定还能帮到相同情况（即使概率很小）的同志。西瓜说的也很对啊，文章应为自己而著。</p>
-<p>这样看下来，折腾的那些便不足为奇了，本就是一直折腾的青春，我倒是不介意多学点多折腾点东西。最后我也是一拍脑袋想起来我还有电池然后拿去，刚好能完赛，也很幸运没犯病，队友成就了我。看下比赛可以看到很多还值得学的东西，pwm调速是肯定比不上pid的，然后机械结构的优化，比如某大跌在现场指出可以把传感器架设在中间，会有利于车的性能提升。可以参考到很多组不同的实现思路，这个比赛本身的意义就已经彰显，大学最缺乏的就是思维的相互碰撞和激发，当然大多数人是不经意间的，教会你东西的可能是一个话都讲不上几句的类陌生人。</p>
+<p>其实，笔者觉得不管是竞赛还是折腾东西，就是一个盛大的debug过程。世界就是一个巨大的草台班子。长期的游戏让我练就了被队友嬉笑怒骂不形于色的本领，我可以保证不首先使用言语攻击假想敌的家人，也保证不第一个给队友上压力。其次菜了得承认。最后，要有一颗折腾的心，这方面可能EOS教会我的更多一些，遇见不同种类，不同方式的问题刁难，有一些是很值得记录下来的，我以后也一定趁着自己还清醒要写文章记录一下。</p>
+<p>这样看下来，折腾的那些便不足为奇了，本就是一直折腾的青春，我倒是不介意多学点多折腾点东西。最后是一拍脑袋想起来我还有电池，刚好能完赛没犯病。看下比赛可以看到很多还值得学的东西，pwm调速是肯定比不上pid的，然后机械结构的优化，比如某大跌在现场指出可以把传感器架设在中间，会有利于车的性能提升。可以参考到很多组不同的实现思路，这个比赛本身的意义就已经彰显，大学缺乏思维的相互碰撞和激发，当然大多数人是不经意间的，教会你东西的可能是一个话都讲不上几句的类陌生人。</p>
 <p>然后我在反思，如果我失败了，一如我之前的些奇奇怪怪bug，有的时候tty都进不去，社区的方案也都尝试过了。失败了，我还会记录这些吗。答案很有可能是否，我会去自恃自己的记忆，而永远去逃避问题不了解其内容，也就是自身的进步仍然是基于一种脆弱的优越者假想甚至是自负论。还是不在tech里讨论自由意志和个人发展的孰优孰劣，多学多做就好。</p>
-<p>（完篇的时候，时钟正好停在自己的十九岁生日的最后一分钟，很奇妙的体验，自己已经立下决心将所有节日以平常心看待，看淡生活的种种波澜，也不相信知天命的话术，但仍会下意识有所注意，感慨小时候那个一到生日就期盼着别人祝福的单纯的我，已经过去这么久了啊。静静地等待这一分钟流逝过去。经历自己变老真的是一件奇妙的事情啊，不过也懒得再去开一篇新随想了，我无悔去肆意地挥霍我的青春。）</p>
+<p>（完篇的时候，时钟正好停在自己的十九岁生日的最后一分钟，很奇妙的体验，自己已经立下决心将所有节日以平常心看待，看淡生活的种种波澜，也不相信知天命的话术，但仍会下意识有所注意，感慨小时候那个一到生日就期盼着别人祝福的单纯的我，已经过去这么久了啊。静静地等待这一分钟流逝过去。经历自己变老真的是一件奇妙的事情啊，不过我也无悔去肆意地挥霍我的青春。）</p>
 <p><strong>DONE.</strong></p>
 ]]></content:encoded>
     </item>
