@@ -4,7 +4,7 @@ draft: false
 author: ["nanimonai"]
 date: 2024-01-02
 hidemeta: true
-description:
+description: Out of time
 ---
 
 # 为什么研究这个

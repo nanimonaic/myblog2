@@ -2,24 +2,140 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>nanimonai&#39;s Blog</title>
-    <link>http://localhost:1313/</link>
+    <link>https://blog.nanimonai.org/</link>
     <description>Recent content on nanimonai&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 18 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.nanimonai.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BabyRSA</title>
+      <link>https://blog.nanimonai.org/posts/tech/babyrsa/</link>
+      <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.nanimonai.org/posts/tech/babyrsa/</guid>
+      <description>初试Crypto</description>
+      <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
+<p>我是🕊大王，本来4.6一比完就想写了，硬鸽到今天。主要也是因为一堆作业考试给应付得手忙脚乱的。</p>
+<p>这个是我们校内的CTF中的一个题目名为“babyrsa”，下载下来之后是一个babyrsa.py，于是我试图认真地学一下rsa的知识。在《密码编码学与网络安全》这本书中指出：很多的公钥密码体制的理论都基于数论，如果读者接受本章中给出的结论，那么便不必严格地理解数论的有关知识。然而，要完全理解公钥算法，就需要理解这些数论知识。</p>
+<p>然而，我对于数论的认知完全停留在初二那个暑假去学院数竞培训的时间，当时有一位老师专门讲到了数论，我第一次听到“模十同余”这个概念，也第一次接触到所谓的中国剩余定理（在当时我的注意力基本都被解析几何和四点公圆的奇葩题目给吸引住了）</p>
+<h1 id="自使疑始释">自使疑始释</h1>
+<p>回到主题，在公钥密码体制中基本由6个部分组成：</p>
+<p><strong>明文</strong>：这是原始未加密的信息或数据，是加密过程的输入。</p>
+<p><strong>加密算法</strong>：这是一系列用于将明文转换为密文的规则和步骤。在公钥加密中，这个过程利用了公钥。
+公钥：这是一个数字证书，用于加密明文或验证签名，公开可获取。任何人都可以使用公钥来加密信息，但只有持有对应私钥的接收者能够解密。</p>
+<p><strong>密文</strong>：经过加密算法处理后产生的加密过后的信息或数据，只有拥有相应私钥的人才能解密回明文。</p>
+<p><strong>解密算法</strong>：这是一系列用于将密文转换回明文的规则和步骤。在公钥加密中，这个过程利用了私钥。</p>
+<p><strong>私钥</strong>：这是一个数字证书，用于解密收到的信息或进行数字签名，应当被密切保护，不对外公开。私钥确保只有密钥的持有者才能解密那些用对应公钥加密的信息。</p>
+<p>1976年，两位美国计算机学家Whitfield Diffie 和 Martin Hellman，提出了一种崭新构思，可以在不直接传递密钥的情况下，完成解密。这被称为&quot;Diffie-Hellman密钥交换算法&quot;。这个算法启发了其他科学家。人们认识到，加密和解密可以使用不同的规则，只要这两种规则之间存在某种对应关系即可，这样就避免了直接传递密钥。</p>
+<p>这种新的加密模式被称为&quot;<strong>非对称加密算法</strong>&quot;。如果公钥加密的信息只有私钥解得开，那么只要私钥不泄漏，通信就是安全的。</p>
+<p>（1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。</p>
+<p>（2）甲方获取乙方的公钥，然后用它对信息加密。</p>
+<p>（3）乙方得到加密后的信息，用私钥解密。</p>
+<p>1977年，三位数学家Rivest、Shamir 和 Adleman 设计了一种算法，可以实现非对称加密。这种算法用他们三个人的名字命名，叫做RSA算法。从那时直到现在，RSA算法一直是最广为使用的&quot;非对称加密算法&quot;。毫不夸张地说，只要有计算机网络的地方，就有RSA算法。</p>
+<p>RSA是一种分组密码，其密文和明文都是0~n-1之间的证书，通常n是1024位的二进制数或309位的十进制数，也就是说n&lt;2^1024。明文分组进行加密，每个分组的二进制值均小于n。</p>
+<p>（1）选定两个素数(p,q)（保密的，选定的）</p>
+<p>（2）n=pq(公开的，计算得出的)</p>
+<p>（3）e,满足gcd(φ(n),e)=1,1&lt;e&lt;φ(n)（公开的，选定的）</p>
+<p>（4）d≡e^-1(mod φ(n))（保密的，计算得出的）</p>
+<p>私钥为{d，n}，公钥为{e,n}。假设A公布了密钥，用户B要发送消息M给A，那么用户B只需要计算 M≡C^d(mod n)并发送给C；在接收端，用户A计算M≡C^d(mod n)以解出消息M。</p>
+<p>需要注意的是，在rsa加密解密中都需要计算某个整数模n的整数次幂，如果先求整数的幂再模n，soleidei，中间的结果会非常大。可以运用模算术的性质解决，去简化为对中间的计算结果模n。因为在rsa中使用的指数很大，所以还得考虑幂运算的效率问题如果正常计算x^16次方，需要进行15次乘法，这样子的话对加密解密的时间就上了很大的压力。但是可以取重复每个部分结果的平方（2^2,2^4,2^8,2^16）,就只需要四次乘法了。</p>
+<p>给出普遍的计算a^b mod n的算法，其中里面的变量c不是必须的，整数b表示为二进制数，引入它为了解释算法，c的终值即使指数值：</p>
+<pre tabindex="0"><code>c←0;f←1
+for i←k downto 0
+	do c←2*c
+	   f←(f*f) mod n
+	if bi=1		（bi i是下标）
+		then c←c+1
+		  f←(f*a) mod n
+	return f
+</code></pre><p>我是懂哥，比赛看到这里假装自己懂了，然后开始看题目。后来我发现对于真正的rsa系列题目还有一系列难点涉及到e的取值（3，17，65537），各个情况的互相求解，不同的攻击方式等等，也要了解如中国剩余定理，费马定理，Miller-Rabin算法什么的，暂且按下不表。</p>
+<h1 id="baby的rsa">Baby的rsa</h1>
+<p>来看一下源码：</p>
+<pre tabindex="0"><code>from gmpy2 import lcm
+from Crypto.Util.number import getPrime, bytes_to_long
+
+p = getPrime(1024)
+q = getPrime(1024)
+n = p*q
+e = 54666
+h = lcm(p - 1 , q - 1)
+flag = b&#39;FCTF{***********}&#39;
+m = bytes_to_long(flag)
+c = pow(m, e, n)
+print(&#39;n: &#39;, n)
+print(&#39;h: &#39;, h)
+print(&#39;c: &#39;, c)
+
+
+
+
+&#39;&#39;&#39;
+n:  25527104228224088488040470054859297799684430729586201999927539150044992353999083976287914924970569469434686168557247480896928199907052200737794107820101535432772515334456482673511185210116841919416618006696356771202410487435695207310741143088507315599413718818919895412368893805095614918899139207456629111515498628424508456173008212962396577655489900115537922862725514355690650346542020236913649627901430140820374812887483132677589636744805036428604336253688728768629554430310965303561197842773841768036265483485885167914975226451364872214945774294272151759555341126251417977165442601848916571897507614450138696307441
+h:  3190888028528011061005058756857412224960553841198275249990942393755624044249885497035989365621321183679335771069655935112116024988381525092224263477512691929096564416807060334188898151264605239927077250837044596400301310929461900913842642886063414449926714852364986926546111725636951864862392400932078638939397162813314446093112008451870874459413340817966632865485406320788272316381137437957674310631802876313435533326327324210320100692584743680300917008843045504725648240011406960704841222641567549521400885041138306803979812904472944466100873729786606242613061006721938847831340052029664934674085291935568007804584
+c:  13816656057233504242725466607519098922616296851282996573245636803888321169952138063011430581813327223855035775201965978271601144858474586480811825971179893352623779199435743915535990803704703901640138034283878850535619383284762202523145531803148037944606221169858890092284283768859214489478888725916054874525393017572123038563581085488781982829726844109883458439559508856073477596828594786184067989967020470472291721891068880110540699901476565507918536144452248311628215837448639176024403880919704090284307989085868140402906218076204485172179740170107661474514833980476371750724966421481356221210695767530318458804012
+</code></pre><p>看起来非常吓人。</p>
+<p>在这个位数的情况下，我不知道能不能把他分解，使用一些常规手段得等上好久，觉得可能没那么简单。</p>
+<p>注意到，e = 54666，并不是一个素数。目前我们只知道e，h，c，n。我刚开始以为可以直接从h和n直接逆推出p和q，还是太天真了。然后去网络上找，发现有人讲过这种题型，但是讲的都有点奇怪，我当时没懂，又自己开始琢磨。在探索过程中，我发现一个名曰“欧几里得算法”的东西可能有所帮助，于是我去看了一下wiki，发现就是辗转相除法其实。</p>
+<pre tabindex="0"><code>def gcd(a, b):
+    while b != 0:
+        t = a % b
+        a = b
+        b = t
+    return a
+</code></pre><p>想必这个迭代，各位都有印象，它广泛地出现在编程题目中。当然也有：</p>
+<pre tabindex="0"><code>def gcd(a, b):
+    return a if b == 0 else gcd(b, a % b)
+</code></pre><p>扩展欧几里得算法是用于计算两个整数a和b的最大公约数以及满足贝祖等式ax+by=gcd(a,b)的整数解x和y的一种算法。</p>
+<p>评价是有点汗流浃背了，我开局第一题做的这一题（一见钟情），到晚上都没想好是什么个思路。翻阅资料，了解到大素数和大整数的位数是尤为重要的，可以有奇淫巧技来破解。观察到n和h的位数相近，继续学习并尝试使用下列代码。</p>
+<pre tabindex="0"><code>h = 
+e = 
+c = 
+n = 
+
+print(len(bin(h)[2:]))
+print(len(bin(n)[2:]))
+
+#bin(h)将变量 h 转换为二进制字符串表示；[2:]切片操作，从第三个字符（二进制数的起始字符）开始截取到末尾，去掉了前面的 &#39;0b&#39;，这是二进制数前缀；len()：获取字符串的长度，即二进制数的位数。
+</code></pre><p>输出2045和2048。</p>
+<p>n是两个大素数p和q的乘积。而h是p-1和q-1的最小公倍数。因此，它们的位数可以用来估计p和q的位数。具体地说，如果n是一个 2048 位的数字，那么p和q通常会是1024位的素数。</p>
+<p>进行穷（ti）举（shen）攻击，进行遍历，差三位所以我选择（4，7）。这应该算是…穷举吧，试着当作φ的倍数去解，然后使用扩展欧几里得解密钥。其中，模逆是指对于给定的两个整数a和n，如果存在一个整数b，使得 ab≡1(mod n)，那么b就是a在模n意义下的乘法逆元，通常记作a−1。当然，≡表示模同余关系</p>
+<p>复习一下上面的解密，其中M≡C^d(mod n)，d就是指数e的模φ的模逆，(e*d)%φ(n)=1 。需要指出的是，加密操作是指数运算，解密操作则是对密文进行模幂运算，其结果是明文的平方。因此，解密后的结果 m_2 是明文的平方。</p>
+<p>最终代码如下：</p>
+<pre tabindex="0"><code>import gmpy2
+from Crypto.Util.number import *
+h =
+e =
+c =
+n =
+
+#print(len(bin(h)[2:]))
+#print(len(bin(n)[2:]))
+
+for gcd_val in range(4, 8):
+    phi = h * gcd_val
+    try:
+        d = gmpy2.invert(e // 2, phi)
+        m_2 = pow(c, int(d), n)
+        flag = long_to_bytes(gmpy2.isqrt(m_2))
+        print(flag)
+    except ZeroDivisionError:
+        continue
+</code></pre><p>可以得出 b&rsquo;FCTF{***********}&rsquo;（真实值是一串字符），提交即可。</p>
+<p>这种题型算是比较基础的题目，当然让我学到很多，感觉很有意思。于是回到博客的开篇句：</p>
+<p>“吾魂兮无求乎永生，竭尽兮人事之所能”
+——Pindar</p>
+<p><strong>DONE.</strong></p>
+<p>参考文章<a href="https://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html">(Sir,this way.)</a></p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Research on the principle of automatic punch-in</title>
-      <link>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</link>
+      <link>https://blog.nanimonai.org/posts/tech/research-on-the-principle-of-automatic-punch-in/</link>
       <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</guid>
-      <description>这是什么 近日，打卡更新方式，由之前转移到了某一新平台上。求知欲驱使进行研究。写的不周，还请包含，同时我要非常感谢lockey中的一位热心朋友不厌其烦地为我指点迷津。
-如何实现 第一步 首先是获取签到的数据。不难看出，它采用rsa加密。
-先去官网下载.apk文件，而众所周知，.apk是一种压缩文件，所以直接解压出来，find一下，确实是rsa，然后思考如何拿到公钥。
-继续find寻找.pem，找到一个证书(本人搞到这里有点绷不住了，真的难绷），写py以还原出公钥：
-import OpenSSL.crypto cert_text = &amp;#34;&amp;#34;&amp;#34; -----BEGIN CERTIFICATE----- MIIFizCCA3OgAwIBAgIDAJY4MA0GCSqGSIb3DQEBCwUAMIGAMQswCQYDVQQGEwJD TjEQMA4GA1UECAwHQmVpamluZzEMMAoGA1UECgwDTVNBMREwDwYDVQQLDAhPQUlE X1NESzEeMBwGA1UEAwwVY29tLmJ1bi5taWl0bWRpZC5zaWduMR4wHAYJKoZIhvcN AQkBFg9tc2FAY2FpY3QuYWMuY24wHhcNMjQwMTA3MTQ0ODU1WhcNMjUwMTA3MTQ0 ODU1WjB9MQswCQYDVQQGEwJDTjEQMA4GA1UECAwHQmVpamluZzEQMA4GA1UEBwwH QmVpamluZzEQMA4GA1UECgwHd2phY2tlcjEWMBQGA1UEAwwNY29tLnlpYmFuLmFw cDEgMB4GCSqGSIb3DQEJARYRd2FuZ2ppZTJAeWliYW4uY24wggIiMA0GCSqGSIb3 DQEBAQUAA4ICDwAwggIKAoICAQCyGC9T3GW4BSsvnVNqb8+HlnjJAQvTPd7H13m1 f945uUsUYYMaaZuICYjb4qefZUyQgyxBUTYfBOTpE7ccdcNoZgCp05RTng30zvkc 4pjawJIkNeIC2NGlN7RquO4Ka/06LSuq5N+bfL78E0MwZAinoxSswf/yNY5R1LJ2 b3I7BnW7rVSb7KbB0Q4z5KmuJ04hPVl7BtSdfVnvnRVTBDRm/cMgyupEl+CCGW8H UejzPHdHeHRK1rx7fuwQI+5jgMmDYRNXZD4AmJ0vClurQR5avN2xOuxB8HbtB+lQ itsNnQCvYY1Xp4s7FtfmT6JzDNQ//vRgXxYrOaVFfoY/ugrO+SfZtqej+mdKR3Kg OaAA75t8zcJfM6WGrbPJl3xHc2bhD4kGwRkTAcHJ7WQOIrWz85CPCfIoYh8nZlBl sCNamJJh6Pl2nAtmnfMtDuYZJo/2QK6J/KFtywsYIekU6fiRsJaaunBf5sD9Ixbv JcRRB+HRCsySKYEg8z7Xlh90fHimfUgT0Gt44/o+nzPh7Cq9Ay6dWtMxYFx78Z1e papOJdUNpZWIET8wQHriJmbJ18TlidGRAW85kW2ka2cr4u6Ed68JQa+nN+kbS0dD euvOBGOsiqqCy5aeA0oz88HRWWIga02PLTZbEs4PdYrNzHWCISjnk34KpwwxYJUn 6Zpy1wIDAQABoxAwDjAMBgNVHRMBAf8EAjAAMA0GCSqGSIb3DQEBCwUAA4ICAQAk o30meLI9Un/7KoUekSMhterJ6K11cHKAa+WQqqzp8If+gIhjsyYk7Wf1fgStvoNu jILWSAfe2C2k74QrlVsUFXue2Ekc+eyDbUhwOi4rVju68/eu4HSpdIUbFQ7ZpivC adjw7qfN90sp6S+O/dDQ9SzUPBpjMQQ6ZvSTFv7TtZ1cjzOpcfogrDGyOe+mE5Rv xT3IaWFBcY2fe8lh+/7mJ27A5XgCka1LTZ2OFwI4d1gPWRhwi7R0p4rGhtmk2JJG viz1rPn8pBBeR5zcwHFuDAbL/1C9d6rZ5lajycrdPZzbcuFAzx7NPafiMsyMYwBK 9oQDIjS5UmfMt+lMFk37yCesFqxq/DOIPm1Hz3N1t5RpcZuwIkCzXYhtOkCbu9SZ xKqxztpcA5ySf3DWH4TIxKGXxIlC5pr2F4HsmKDIAO/1O6HXI0Bo+s/3KsDS/IMV nlqKu1WUKUZJebjN/CL61ChfHjkmogslgTkQpJnGsWsix3v0nBFjpbOm/oXYYMJy p+aMzppKaLx3mniXW/kimteNKu8EdeE7x/QeEIk5IUotfRPAeydVk9yqf+c4ClS9 YwVFAqIDzbC3nLBBXb36WNOoG+MFwWkjKoPhtIoLysTN1gNuFYUlJ1JptoP0Pe0I k5FWnRRk1vKUktYUfMJE4PQg4sWxZhGkKrGU5zVLsg== -----END CERTIFICATE----- &amp;#34;&amp;#34;&amp;#34; cert=OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, cert_text) public_key=OpenSSL.crypto.dump_publickey(OpenSSL.crypto.FILETYPE_PEM, cert.get_pubkey()).decode(&amp;#34;utf-8&amp;#34;) print(public_key) 得出公钥就够用了：
-第二步 获取易班的cookie，参考github可得：
-def auth(self): COOKIES = {} CSRF = &amp;#34;00000000000000000000000000000000&amp;#34; HEADERS = { &amp;#34;Origin&amp;#34;: &amp;#34;m.yiban.cn&amp;#34;, &amp;#34;origin&amp;#34;:&amp;#34;api.uyiban.com&amp;#34;, &amp;#34;origin&amp;#34;:&amp;#34;https://c.uyiban.com&amp;#34;, &amp;#34;authority&amp;#34;: &amp;#34;api.</description>
+      <guid>https://blog.nanimonai.org/posts/tech/research-on-the-principle-of-automatic-punch-in/</guid>
+      <description>应用</description>
       <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
 <p>近日，打卡更新方式，由之前转移到了某一新平台上。求知欲驱使进行研究。写的不周，还请包含，同时我要非常感谢lockey中的一位热心朋友不厌其烦地为我指点迷津。</p>
 <h1 id="如何实现">如何实现</h1>
@@ -77,7 +193,7 @@ print(public_key)
 <p><img loading="lazy" src="https://img.nanimonai.org/rsa.png" alt=""  />
 </p>
 <h2 id="第二步">第二步</h2>
-<p>获取易班的cookie，参考github可得：</p>
+<p>获取cookie，参考github可得：</p>
 <pre tabindex="0"><code>
 def auth(self):
     COOKIES = {}
@@ -106,24 +222,25 @@ def auth(self):
     cookies: {&#39;PHPSESSID&#39;: &#39;fa1a28bc38cc**c4b1e87a8ce51f****&#39;, &#39;cpi&#39;: &#39;eyJDaG**%3D%3D&#39;, &#39;is_certified&#39;: &#39;1&#39;}
 </code></pre><p>All right. 现在只需要PHPSESSID.</p>
 <h2 id="第三步">第三步</h2>
-<p>进行ADB调试，其中挺复杂的。首先你PC得有Chrome，我Linux上面用的是Chromium。第一次尝试的时候移动端使用的是旧版本的Kiwi Browser，导致chrome://inspect/#devices这个界面没有inspect fallback选项。更新就行了</p>
+<p>进行ADB调试，其中挺复杂的。我未来也要尝试一下有没有更加简单的调试方法。首先你PC得有Chrome，Firefox就不行。我Linux上面用的是Chromium。第一次尝试的时候移动端使用的是旧版本的Kiwi Browser，导致 chrome://inspect/#devices 这个界面没有inspect fallback选项。更新就行了。</p>
 <p><img loading="lazy" src="https://img.nanimonai.org/404.png" alt=""  />
 </p>
-<p>在kiwi上找到Network Conditions，把用户代理叉掉并自定义写上MicroMessenger</p>
+<p>在kiwi上找到Network Conditions，把用户代理叉掉并自定义写上MicroMessenger。</p>
 <p><img loading="lazy" src="https://img.nanimonai.org/network.png" alt=""  />
 </p>
 <p>这个其实可以直接在控制台输入命令获取（忘记截图了，可以自己去试一下）：</p>
 <pre tabindex="0"><code>console.log(&#34;User-Agent:&#34;, navigator.userAgent);
-</code></pre><p><img loading="lazy" src="https://img.nanimonai.org/gongzuotai.png" alt=""  />
+</code></pre><p>直接从中间几个开始分析（其实是依葫芦画瓢），能够成功找到https://api.uyiban.com/nightAttendance/student/index/signIn?CSRF=&hellip;</p>
+<p>以及https://api.uyiban.com/nightAttendance/student/index/signPosition?CSRF=&hellip;</p>
+<p>这样就可以进行测试，API 是 RESTful 标准。从登录开始追踪，使用curl去调试。</p>
+<p><img loading="lazy" src="https://img.nanimonai.org/gongzuotai.png" alt=""  />
 
 <img loading="lazy" src="https://img.nanimonai.org/yes.png" alt=""  />
 </p>
-<p>直接从中间几个开始分析（其实是依葫芦画瓢），能够成功找到https://api.uyiban.com/nightAttendance/student/index/signIn?CSRF=&hellip;以及https://api.uyiban.com/nightAttendance/student/index/signPosition?CSRF=&hellip;</p>
-<p>这样就可以进行测试，API 是 RESTful 标准。从登录开始追踪，使用curl去调试。</p>
 <p>错误的都是{&lsquo;code&rsquo;: 500, &lsquo;msg&rsquo;: &lsquo;非法签到&rsquo;, &lsquo;data&rsquo;: None}	0.0</p>
 <p>签到成功会返回{&lsquo;code&rsquo;: 0, &lsquo;msg&rsquo;: &lsquo;&rsquo;, &lsquo;data&rsquo;: True}</p>
 <h2 id="第四步-前人的智慧">第四步 前人的智慧！</h2>
-<p>脚本是大爱无私宽仁的Mike修改的，最初版是来自<a href="https://webcache.googleusercontent.com/search?q=cache:https%3A%2F%2Fwcyuns.cn%2Farchives%2F%25E6%2598%2593%25E7%258F%25AD%25E6%2599%259A%25E7%25AD%25BE%25E8%2584%259A%25E6%259C%25AC">this</a>思路也是借鉴于此，算是一个复现。真所谓巧夺天工，令人敬佩！</p>
+<p>脚本是大爱无私宽仁的Mike修改的，最初版是来自<a href="https://webcache.googleusercontent.com/search?q=cache:https%3A%2F%2Fwcyuns.cn%2Farchives%2F%25E6%2598%2593%25E7%258F%25AD%25E6%2599%259A%25E7%25AD%25BE%25E8%2584%259A%25E6%259C%25AC">this</a>思路也是借鉴于此，上面也算是重走一遍。真所谓巧夺天工，令人敬佩！</p>
 <pre tabindex="0"><code>import json
 import re
 import sys
@@ -401,15 +518,11 @@ if __name__ == &#34;__main__&#34;:
     
     <item>
       <title>Smart car - freshman trash version</title>
-      <link>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</link>
+      <link>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</link>
       <pubDate>Mon, 15 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</guid>
-      <description>这是什么 2024校EEA举办无人车的循迹避障赛。欣然规往。
-为什么去做这个 兴趣啊，混蛋！难道还是为了什么生计什么未来什么饭碗而去的嘛？
-咋做的 刚开始和队友是有甚大的意淫的，企图先整个初号机出来，选方案就选了挺久，然后参考了很多用nano主控，车架也是上便宜的亚克力，循迹依靠pwm调值，随便整个五路红外循迹接个面包板在来三节电池代码写写就完事。二代机直接上PID然后再优化机械结构，换更好电机之类的。
-事实上发现，这调试的东西也太多了。问题很多，情况非常多，是一开始所预想不到的。实现代码逻辑就得有不同的思路，前期兴致勃勃到，后期就是坚持就是成功，代码从开始的立志优化到最完美，到后来的能跑就行，一优化就又g了。不停的测试和排查故障是会令人烦躁的，例如：我误读要求以为要循迹两圈，然后抓耳挠腮写检测逻辑，最后基于队友原来代码写的是：
-void loop() { if(digitalRead(Button) == 0){ if (i &amp;lt; 5){ if(distance &amp;gt;25){ delay(10); xunxian(); } else{ bizhang(); } } else{ Motor(0, 0); } } else{ Motor(0,0); } } ... xunxian() ... else if (SL2 == 0 &amp;amp;&amp;amp; SL1 == 0 &amp;amp;&amp;amp; SR1 == 0 &amp;amp;&amp;amp; SR2 == 0 &amp;amp;&amp;amp; (SR3 == 0 || SL3 == 0)) { Motor(108+v,118+v); delay(10); i++; } ... 这样一坨我也不知道怎么形容的构思，直接给队友后面调车造成很大的困扰，虽然最后发现是电池电快无了，导致循迹都出现问题带不动电机转向。</description>
+      <guid>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</guid>
+      <description>A good try for young</description>
       <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
 <p>2024校EEA举办无人车的循迹避障赛。欣然规往。</p>
 <p><img loading="lazy" src="https://img.nanimonai.org/map.jpg" alt="Map."  />
@@ -464,27 +577,11 @@ else if (SL2 == 0 &amp;&amp; SL1 == 0 &amp;&amp; SR1 == 0 &amp;&amp; SR2 == 0 &a
     
     <item>
       <title>WeCom check-in crack</title>
-      <link>http://localhost:1313/posts/tech/wecom-check-in-crack/</link>
+      <link>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/tech/wecom-check-in-crack/</guid>
-      <description>为什么研究这个 学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。
-因此，第一种方法应运而生：
-在手机上安装VMOS Pro，走虚拟机路线。其中的root和Xposed的模块安装均为傻瓜式操作，这里不过多赘述。BTW，虚拟安卓机在大学的另一大用途就是通过学习通考试。
-安装应用变量，Fake location（fuck location的开发者在安卓10上测试过，但是VMOS Pro版本只有7.1和9，有兴趣者可以尝试一下能否可行），而且我们需要的是具有基站模拟功能的位置模拟软件。在当前诈骗猖獗的情况下自建伪基站是不切实且无异于找死的。Fake location需要爆米，我记得7r/月。
-Xposed Installer后，激活应用变量，配置指定应用（如企业微信），其中比较重要的是你的安卓版本，IMEI和MEID这几个需要留意。如果你在之前的手机/母鸡上面打过卡了，这些就要原封不动的抄原来手机。反之则无所谓。
-启动fake location。位置选择到位后启动模拟，同时启动基站模拟。
-PS：此法是由Mike和大西瓜研究而出。此法也有助于不同大学的上课打卡机制（我所了解的其他大学的打卡机制不是很严格），上班族的上班打卡机制。以及Fake location的路线模拟，可以帮助有需要者进行跑步的模拟。（导入运动软件进行操作云云），网络上面很多大佬也讲过类似操作，本人这样帮过朋友，证明其可行性。就是画路线的时候别超出操场或者撞墙里面了，以免露馅。
-好日子的结束 在一次美美不请假而出游的日子中，我意外发现第一种方法失效了。其具体表现为：地图识别我在A地（GPS），也就是目标打卡地，但是我的伪装被企业微信识破，即它能准确定位到我的真实所在地B地。而这个方案是在2023.12之前都有效的，且亲自实验过的。目前失败原因不明，有思路者欢迎联系我一起探讨。
-后经排查原因无果后，高人OO指点采用第二种方法。
-OO指出可以使用备用机装企业微信然后写自动脚本完成打卡，并且自己实验成功。
-虽然说用的是老旧的备用机。但是仍然要注意自己的安全，隐私等。我最开始试验是在Hamibot上，Hamibot可以远程执行脚本，安全系数低。它算一个云端控制，理论上讲服务器后退可以看我手机的内容甚至控制，所以并不推荐这个平台。里面虽然有日志，但是服务器是外人的。开发文档里面有扫描文件，截屏，OCR获取信息。理论上能获取你手机的任何操作单仅限于显示时候，锁屏没有密码脚本的话，也是开不起来的。如果真要使用也建议是暂时使用几次，不需要使用的时候推荐关闭无障碍。
-鄙人的脚本跑在一个叫OpenAuto.js的开源软件上(Github)目前测试也是可行的，甚至优于Hamibot，因为其可以设置脚本的定时执行和循环执行，可以完成很多很多的其他操作而不用把这些内容加到脚本编写里面去。但还是要提供无障碍和一些权限，因此仍然建议找台备用机。
-设置无障碍，省电设置云云。
-撰写并运行脚本。
-脚本编写可以参考(Github)，他是写Hamibot上的脚本的，可以参考借鉴思路。
-以下是我的打卡脚本，网络上有人说快捷打卡失误率较高，鄙人倒是没遇到过所以直接选择快捷打卡。这样进企业微信就行了，不用去完善导航到打卡栏再点击打卡的操作。
-// 确保开启了Auto.js的无障碍服务 auto.waitFor(); // 唤醒并解锁设备（根据你的设备情况，这里可以自定义解锁逻辑） device.wakeUp(); let { height, width } = device let x = width / 2 let y1 = (height / 3) * 2 let y2 = height / 3 swipe(x, y1, x + 5, y2, 500) sleep(3000) toastLog(&amp;#39;启动企业微信,准备打卡&amp;#39;) // 启动企业微信 app.</description>
+      <guid>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</guid>
+      <description>Out of time</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
 <p>学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。</p>
 <p>因此，第一种方法应运而生：</p>
@@ -546,10 +643,10 @@ exit();
     
     <item>
       <title>舞文弄墨</title>
-      <link>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
+      <link>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
       <pubDate>Mon, 30 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
+      <guid>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
       <description>现代的青年愈发得迷失了。我也一样。所谓沉默，沉默的大多数。所谓嘈杂。一位看客，或许会好过突如其来的死亡吧。害怕失去害怕未知，害怕自己会对现实抱有期望
 听起来好像可笑的很。在一个青春中畏手畏脚，不敢做出承诺，也不怎么负责任。几年后回头看看，那会是庆幸还是懊悔？老者们责备，嘲笑年轻人的爱情，认为其只是源于欣赏，源于心理上虚假的自我幻想。青年人却嘲讽老者的“迂”，自以为能为另一半负起责任，能够互相包容。
 好像都有些偏激。
@@ -574,10 +671,10 @@ exit();
     
     <item>
       <title>牢骚</title>
-      <link>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</link>
+      <link>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</link>
       <pubDate>Sat, 28 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</guid>
+      <guid>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</guid>
       <description>找回了我用于记录往事的笔记本，近来手头的书也都还没读完，就权且写一些旧东西吧。
 2023.5 思想总是跑在前面。他看得太远，比只能活在当下的身体还远得多。拿掉希望就是让思想重新回归身体，而且身体总有一天会腐烂。
 2023.10 &amp;hellip;
@@ -609,10 +706,10 @@ exit();
     
     <item>
       <title>Blog Test</title>
-      <link>http://localhost:1313/posts/think/blog-test/</link>
+      <link>https://blog.nanimonai.org/posts/think/blog-test/</link>
       <pubDate>Thu, 28 Sep 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/posts/think/blog-test/</guid>
+      <guid>https://blog.nanimonai.org/posts/think/blog-test/</guid>
       <description>这是我的第一篇文章</description>
       <content:encoded><![CDATA[<p><strong>Hello,world!</strong></p>
 <p>写下这些字时，我是一名迷茫的电脑小白，进入浩如烟海的赛博世界，越是走到深处越会觉得自己无知，觉得自己无从下手。</p>
@@ -636,10 +733,10 @@ exit();
     
     <item>
       <title>Link</title>
-      <link>http://localhost:1313/link/</link>
+      <link>https://blog.nanimonai.org/link/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/link/</guid>
+      <guid>https://blog.nanimonai.org/link/</guid>
       <description>何必使用火刑具呢？他人，即地狱。</description>
       <content:encoded><![CDATA[<a target="_blank" href=https://blog.iceyear.eu.org title=Ice&#32;Year class="friendurl">
   <div class="frienddiv">
@@ -734,10 +831,10 @@ exit();
     
     <item>
       <title>关于</title>
-      <link>http://localhost:1313/about/</link>
+      <link>https://blog.nanimonai.org/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/about/</guid>
+      <guid>https://blog.nanimonai.org/about/</guid>
       <description>我是一个爱打游戏的老人，偶尔假装自己在努力学习
 本项目由 Hugo 生成
 主题 Paper 由 adityatelange 开发</description>

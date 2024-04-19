@@ -4,7 +4,7 @@ draft: false
 author: ["nanimonai"]
 date: 2024-04-15
 hidemeta: true
-description: 
+description: A good try for young
 ---
 # 这是什么  
 2024校EEA举办无人车的循迹避障赛。欣然规往。  
