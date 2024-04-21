@@ -98,7 +98,7 @@ print(len(bin(n)[2:]))
 #bin(h)将变量 h 转换为二进制字符串表示；[2:]切片操作，从第三个字符（二进制数的起始字符）开始截取到末尾，去掉了前面的 &#39;0b&#39;，这是二进制数前缀；len()：获取字符串的长度，即二进制数的位数。
 </code></pre><p>输出2045和2048。</p>
 <p>n是两个大素数p和q的乘积。而h是p-1和q-1的最小公倍数。因此，它们的位数可以用来估计p和q的位数。具体地说，如果n是一个 2048 位的数字，那么p和q通常会是1024位的素数。</p>
-<p>进行穷（ti）举（shen）攻击，进行遍历，差三位所以我选择（4，7）。这应该算是…穷举吧，试着当作φ的倍数去解，然后使用扩展欧几里得解密钥。其中，模逆是指对于给定的两个整数a和n，如果存在一个整数b，使得 ab≡1(mod n)，那么b就是a在模n意义下的乘法逆元，通常记作a−1。当然，≡表示模同余关系</p>
+<p>进行穷（ti）举（shen）攻击，进行遍历，差三位所以选择（4，8）。这应该算是…穷举吧，试着当作φ的倍数去解，然后使用扩展欧几里得解密钥。其中，模逆是指对于给定的两个整数a和n，如果存在一个整数b，使得 ab≡1(mod n)，那么b就是a在模n意义下的乘法逆元，通常记作a−1。当然，≡表示模同余关系</p>
 <p>复习一下上面的解密，其中M≡C^d(mod n)，d就是指数e的模φ的模逆，(e*d)%φ(n)=1 。需要指出的是，加密操作是指数运算，解密操作则是对密文进行模幂运算，其结果是明文的平方。因此，解密后的结果 m_2 是明文的平方。</p>
 <p>最终代码如下：</p>
 <pre tabindex="0"><code>import gmpy2
@@ -121,7 +121,28 @@ for gcd_val in range(4, 8):
     except ZeroDivisionError:
         continue
 </code></pre><p>可以得出 b&rsquo;FCTF{***********}&rsquo;（真实值是一串字符），提交即可。</p>
-<p>这种题型算是比较基础的题目，当然让我学到很多，感觉很有意思。于是回到博客的开篇句：</p>
+<p><del>这种题型算是比较基础的题目，当然让我学到很多，感觉很有意思。</del></p>
+<h1 id="一语点醒撒比人">一语点醒撒比人</h1>
+<p>（4.21更新，绷不住了有点）</p>
+<p>但是，经“客服4.5 9:00-12：00”点拨，我霍然觉得自己就是个傻子。</p>
+<p>他指出：e并不是一个素数，可以执行：</p>
+<pre tabindex="0"><code>print(((p-1)*(q-1))/h)
+</code></pre><p>可以得出为2。一般来说，对于任意两个数a,b，有LCM(a,b)×GCD(a,b)=a×b。由于p和q是素数，GCD(p−1,q−1)GCD(p−1,q−1)很可能是1。h=LCM(p−1,q−1)≈(p−1)×(q−1)，当你用LCM（p-1，q-1）除以（p-1）*（q-1）时，你本质上是在用它自己，或者用一个非常接近它自己的数字来除以它。结果应该接近1。在（p-1）和（q-1）中存在一个小的公因子，会使得LCM略小于h。比如这里输出为2意味着 (p-1) 和 (q-1) 共有一个因子，导致它们的最小公倍数恰好是乘积的一半。那么，上述的代码就显得非常的傻，我们完全可以利用如下代码得出结论：</p>
+<pre tabindex="0"><code>import gmpy2
+from Crypto.Util.number import long_to_bytes
+
+h =
+e =
+c =
+n =
+gcd_val = 2
+phi = h * gcd_val
+d = gmpy2.invert(e // 2, phi) 
+m_2 = pow(c, int(d), n)
+flag = long_to_bytes(gmpy2.isqrt(m_2))
+print(flag.decode(&#39;utf-8&#39;))
+</code></pre><p>太难绷了babyrsa，真的是一题宝宝题啊。</p>
+<p>于是回到博客的开篇句：</p>
 <p>“吾魂兮无求乎永生，竭尽兮人事之所能”
 ——Pindar</p>
 <p><strong>DONE.</strong></p>
@@ -835,10 +856,10 @@ exit();
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://blog.nanimonai.org/about/</guid>
-      <description>我是一个爱打游戏的老人，偶尔假装自己在努力学习
+      <description>我是一个爱打游戏的小屁孩，目前正在努力学习跟上大人们的步伐，却又畏惧于大人们世界的惊涛骇浪，可能是我还没有准备好去经受苦难。
 本项目由 Hugo 生成
 主题 Paper 由 adityatelange 开发</description>
-      <content:encoded><![CDATA[<p>我是一个爱打游戏的老人，偶尔假装自己在努力学习</p>
+      <content:encoded><![CDATA[<p>我是一个爱打游戏的小屁孩，目前正在努力学习跟上大人们的步伐，却又畏惧于大人们世界的惊涛骇浪，可能是我还没有准备好去经受苦难。</p>
 <p>本项目由 <a href="https://gohugo.io/">Hugo</a> 生成</p>
 <p>主题 <a href="https://github.com/adityatelange/hugo-Paper">Paper</a> 由 <a href="https://github.com/adityatelange">adityatelange</a> 开发</p>
 ]]></content:encoded>
