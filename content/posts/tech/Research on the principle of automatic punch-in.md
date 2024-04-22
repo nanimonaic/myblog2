@@ -419,5 +419,48 @@ if __name__ == "__main__":
     main()
 ```
   
+# 一点点小改动
+鉴于本人以Arch系为主力系统，这个脚本有几处在Linux上并不适用。  
+
+arch上并不能直接执行pip install，最恰当的方法应该是给他来个虚拟环境。基于此，jsonpath是用不了的。且msvcrt是一个Windows特定的模块，因此在Linux上不可用。  
+
+于是进行一个代码的修改，个人选择安装AUR中收录的jsonpath_rw：
+```
+yay -S python-jsonpath-rw 
+```
+同时对应着改一下上面脚本的那些地方就行，例如：
+```
+...# 上述代码照抄
+
+def loginin(self): # 登陆校验
+    # 应当先判断列表账号是否都能正常登陆
+    loginin = self.login() # 登录
+    if loginin != 1:
+        print("用户",loginin,"登陆失败，请处理")
+        print("按任意键退出脚本")
+        # 移除了msvcrt.getch()，因为在Linux上不可用
+        input("按回车键退出脚本")
+        sys.exit()
+    self.authorization(0) # 校本化授权先执行
+    return
     
+...# 下面照抄
+```
+在调用jsonpath的地方进行作如下修改：
+```
+self.Address = jsonpath_rw.parse('$..Address').find(Position)[0].value  # 获取可签到位置 地址
+self.LngLat = jsonpath_rw.parse('$..LngLat').find(Position)[0].value    # 获取可签到位置 经纬度
+```
+然后就是考虑在Linux上如何进行定时任务的问题，经某位lockey朋友启发选择直接上大家所熟悉的crontab：
+```
+sudo pacman -S cronie
+sudo systemctl start cronie.service
+sudo systemctl enable cronie.service
+
+crontab -e # 转入nano编辑
+0 0 * * * /usr/bin/python /path/to/your/script.py # 自行照格式修改
+crontab -l # 检查一下有没有写好
+cd /path/to/your
+chmod +x /path/to/your/script.py
+```
 **DONE.**
