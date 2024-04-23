@@ -161,13 +161,14 @@ print(flag.decode(&#39;utf-8&#39;))
 <p>近日，打卡更新方式，由之前转移到了某一新平台上。求知欲驱使进行研究。写的不周，还请包含，同时我要非常感谢lockey中的一位热心朋友不厌其烦地为我指点迷津。</p>
 <h1 id="如何实现">如何实现</h1>
 <h2 id="第一步">第一步</h2>
-<p>首先是获取签到的数据。不难看出，它采用rsa加密。</p>
-<p><img loading="lazy" src="https://img.nanimonai.org/bunan.png" alt=""  />
+<p>首先是获取签到的数据。</p>
+<p>先去官网下载.apk文件，而众所周知，.apk是一种压缩文件，所以直接解压出来，查找一下发现是rsa，然后思考如何拿到公钥。
+<img loading="lazy" src="https://img.nanimonai.org/bunan.png" alt=""  />
 </p>
-<p>先去官网下载.apk文件，而众所周知，.apk是一种压缩文件，所以直接解压出来，find一下，确实是rsa，然后思考如何拿到公钥。</p>
-<p>继续find寻找.pem，找到一个证书(本人搞到这里有点绷不住了，真的难绷），写py以还原出公钥：</p>
+<p>继续find寻找.pem，找到一个证书（本人搞到这里有点绷不住了，真的难绷）</p>
 <p><img loading="lazy" src="https://img.nanimonai.org/pem.png" alt=""  />
 </p>
+<p>写如下代码以还原出公钥：</p>
 <pre tabindex="0"><code>import OpenSSL.crypto
 
 cert_text = &#34;&#34;&#34;
