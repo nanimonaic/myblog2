@@ -14,16 +14,18 @@ description: 应用
     
 ## 第一步  
   
-  首先是获取签到的数据。不难看出，它采用rsa加密。
+  首先是获取签到的数据。
 
-![](https://img.nanimonai.org/bunan.png)
+先去官网下载.apk文件，而众所周知，.apk是一种压缩文件，所以直接解压出来，查找一下发现是rsa，然后思考如何拿到公钥。
+![](https://img.nanimonai.org/bunan.png)  
+
+继续find寻找.pem，找到一个证书（本人搞到这里有点绷不住了，真的难绷）  
+  
+  ![](https://img.nanimonai.org/pem.png)  
+  
+写如下代码以还原出公钥：
 
 
-先去官网下载.apk文件，而众所周知，.apk是一种压缩文件，所以直接解压出来，find一下，确实是rsa，然后思考如何拿到公钥。
-
-继续find寻找.pem，找到一个证书(本人搞到这里有点绷不住了，真的难绷），写py以还原出公钥：
-
-![](https://img.nanimonai.org/pem.png)
 ```
 import OpenSSL.crypto
 
