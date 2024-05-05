@@ -144,7 +144,7 @@ console.log("User-Agent:", navigator.userAgent);
   
 ## 第四步 前人的智慧！  
   
-脚本是大爱无私宽仁的Mike修改的，最初版是来自[this](https://webcache.googleusercontent.com/search?q=cache:https%3A%2F%2Fwcyuns.cn%2Farchives%2F%25E6%2598%2593%25E7%258F%25AD%25E6%2599%259A%25E7%25AD%25BE%25E8%2584%259A%25E6%259C%25AC)思路也是借鉴于此，上面也算是重走一遍。真所谓巧夺天工，令人敬佩！
+脚本是大爱无私宽仁的Mike修改的，最初版是来自[this](https://wcyuns.cn/archives/%E6%98%93%E7%8F%AD%E6%99%9A%E7%AD%BE%E8%84%9A%E6%9C%AC)思路也是借鉴于此，上面也算是重走一遍。真所谓巧夺天工，令人敬佩！
     
     
 ```
@@ -377,33 +377,42 @@ def display_accounts(accounts):
 
 
 def main():
-    accounts = load_accounts()
-    action = '继续'
+    accounts, disturb_mode, disturb_count = load_accounts()
+    if disturb_mode == 'on' and disturb_count > 0:
+        print("免打扰模式开启，自动执行...")
+        disturb_count -= 1
+    else:
+        action = '继续'
+        while action.lower() == '继续':
+            display_accounts(accounts)
+            choice = input("要修改或增加账号吗？(修改/增加/执行): ")
 
-    while action.lower() == '继续':
-        display_accounts(accounts)
-        choice = input("要修改或增加账号吗？(修改/增加/执行): ")
+            if choice.lower() == '修改':
+                index = int(input("请输入要修改的账号序号: ")) - 1
+                if 0 <= index < len(accounts):
+                    new_mobile = input("输入新的手机号: ")
+                    new_password = input("输入新的密码: ")
+                    accounts[index] = yiban(new_mobile, new_password)
+                    save_accounts(accounts, disturb_mode, disturb_count)
+                    print("账户已更新")
+            elif choice.lower() == '增加':
+                num_new_accounts = int(input("请输入要增加的账户数: "))
+                for _ in range(num_new_accounts):
+                    mobile = input("请输入新手机号: ")
+                    password = input("请输入新密码: ")
+                    accounts.append(yiban(mobile, password))
+                save_accounts(accounts, disturb_mode, disturb_count)
+                print("新账户已添加")
+            elif choice.lower() == '执行':
+                break
 
-        if choice.lower() == '修改':
-            index = int(input("请输入要修改的账号序号: ")) - 1
-            if 0 <= index < len(accounts):
-                new_mobile = input("输入新的手机号: ")
-                new_password = input("输入新的密码: ")
-                accounts[index] = yiban(new_mobile, new_password)
-                save_accounts(accounts)
-                print("账户已更新")
-        elif choice.lower() == '增加':
-            num_new_accounts = int(input("请输入要增加的账户数: "))
-            for _ in range(num_new_accounts):
-                mobile = input("请输入新手机号: ")
-                password = input("请输入新密码: ")
-                accounts.append(yiban(mobile, password))
-            save_accounts(accounts)
-            print("新账户已添加")
-        elif choice.lower() == '执行':
-            break
+            action = input("是否继续修改或增加账户？(继续/执行): ")
 
-        action = input("是否继续修改或增加账户？(继续/执行): ")
+        if disturb_count == 0:  # 当不在免打扰模式或免打扰次数用完时询问
+            disturb_mode = 'on' if input("是否开启免打扰模式？(是/否): ").lower() == '是' else 'off'
+            disturb_count = 7 if disturb_mode == 'on' else 0
+
+    save_accounts(accounts, disturb_mode, disturb_count)
 
     for account in accounts:
         account.loginin()
@@ -422,15 +431,32 @@ if __name__ == "__main__":
 ```
   
 # 一点点小改动
-鉴于本人以Arch系为主力系统，这个脚本有几处在Linux上并不适用。  
+这个脚本有几处在Arch Linux上并不适用。  
 
-arch上并不能直接执行pip install，最恰当的方法应该是给他来个虚拟环境。基于此，jsonpath是用不了的。且msvcrt是一个Windows特定的模块，因此在Linux上不可用。  
+pip会往系统里面带脏东西，所以并不能直接执行pip install。会有如下报错：
+```
+pip install numpy
+error: externally-managed-environment
 
-于是进行一个代码的修改，个人选择安装AUR中收录的jsonpath_rw：
+× This environment is externally managed
+╰─> To install Python packages system-wide, try 'pacman -S
+    python-xyz', where xyz is the package you are trying to
+    install.
+    
+    If you wish to install a non-Arch-packaged Python package,
+    create a virtual environment using 'python -m venv path/to/venv'.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip.
+    
+    If you wish to install a non-Arch packaged Python application,
+    it may be easiest to use 'pipx install xyz', which will manage a
+    virtual environment for you. Make sure you have python-pipx
+    installed via pacman.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+
 ```
-yay -S python-jsonpath-rw 
-```
-同时对应着改一下上面脚本的那些地方就行，例如：
+最恰当的方法应该是给他来个虚拟环境。且msvcrt是一个Windows特定的模块，在Linux上不可用，可以代码里面直接给它扬了：
 ```
 ...# 上述代码照抄
 
@@ -439,8 +465,7 @@ def loginin(self): # 登陆校验
     loginin = self.login() # 登录
     if loginin != 1:
         print("用户",loginin,"登陆失败，请处理")
-        print("按任意键退出脚本")
-        # 移除了msvcrt.getch()，因为在Linux上不可用
+        print("按任意键退出脚本")# 移除了msvcrt.getch()，因为在Linux上不可用
         input("按回车键退出脚本")
         sys.exit()
     self.authorization(0) # 校本化授权先执行
@@ -448,12 +473,35 @@ def loginin(self): # 登陆校验
     
 ...# 下面照抄
 ```
-在调用jsonpath的地方进行作如下修改：
+构建虚拟环境需要：
 ```
-self.Address = jsonpath_rw.parse('$..Address').find(Position)[0].value  # 获取可签到位置 地址
-self.LngLat = jsonpath_rw.parse('$..LngLat').find(Position)[0].value    # 获取可签到位置 经纬度
+python3 -m venv /path/to/new/virtual/environment
+
+source /path/to/new/virtual/environment/bin/activate
+
+pip install requests numpy jsonpath
+
+deactivate
 ```
-然后就是考虑在Linux上如何进行定时任务的问题，经某位lockey朋友启发选择直接上大家所熟悉的crontab：
+在你的py文件目录下创建一个.sh：
+```
+#!/bin/bash
+
+VENV_DIR="/path/to/your/venv"
+
+SCRIPT_PATH="/path/to/your/script.py"
+
+source "$VENV_DIR/bin/activate"
+
+python "$SCRIPT_PATH"
+
+deactivate
+
+chmod +x /path/to/your/script.sh
+/path/to/your/script.sh
+```  
+
+然后就是考虑在Linux上如何进行定时任务的问题，经某位lockey朋友启发选择直接上大家所熟悉的cron：
 ```
 sudo pacman -S cronie
 sudo systemctl start cronie.service
@@ -461,8 +509,10 @@ sudo systemctl enable cronie.service
 
 crontab -e # 转入nano编辑
 0 0 * * * /usr/bin/python /path/to/your/script.py # 自行照格式修改
+
+#ctrl+o写入，enter，ctrl+x退出
+
 crontab -l # 检查一下有没有写好
-cd /path/to/your
-chmod +x /path/to/your/script.py
+
 ```
 **DONE.**
