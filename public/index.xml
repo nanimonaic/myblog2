@@ -609,7 +609,7 @@ sudo systemctl start cronie.service
 sudo systemctl enable cronie.service
 
 crontab -e # 转入nano编辑
-0 0 * * * /usr/bin/python /path/to/your/script.py # 自行照格式修改
+0 0 * * * /path/to/your/script.sh # 自行照格式修改
 
 #ctrl+o写入，enter，ctrl+x退出
 
