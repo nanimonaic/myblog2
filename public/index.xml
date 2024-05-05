@@ -262,7 +262,7 @@ def auth(self):
 <p>错误的都是{&lsquo;code&rsquo;: 500, &lsquo;msg&rsquo;: &lsquo;非法签到&rsquo;, &lsquo;data&rsquo;: None}	0.0</p>
 <p>签到成功会返回{&lsquo;code&rsquo;: 0, &lsquo;msg&rsquo;: &lsquo;&rsquo;, &lsquo;data&rsquo;: True}</p>
 <h2 id="第四步-前人的智慧">第四步 前人的智慧！</h2>
-<p>脚本是大爱无私宽仁的Mike修改的，最初版是来自<a href="https://webcache.googleusercontent.com/search?q=cache:https%3A%2F%2Fwcyuns.cn%2Farchives%2F%25E6%2598%2593%25E7%258F%25AD%25E6%2599%259A%25E7%25AD%25BE%25E8%2584%259A%25E6%259C%25AC">this</a>思路也是借鉴于此，上面也算是重走一遍。真所谓巧夺天工，令人敬佩！</p>
+<p>脚本是大爱无私宽仁的Mike修改的，最初版是来自<a href="https://wcyuns.cn/archives/%E6%98%93%E7%8F%AD%E6%99%9A%E7%AD%BE%E8%84%9A%E6%9C%AC">this</a>思路也是借鉴于此，上面也算是重走一遍。真所谓巧夺天工，令人敬佩！</p>
 <pre tabindex="0"><code>import json
 import re
 import sys
@@ -492,33 +492,42 @@ def display_accounts(accounts):
 
 
 def main():
-    accounts = load_accounts()
-    action = &#39;继续&#39;
+    accounts, disturb_mode, disturb_count = load_accounts()
+    if disturb_mode == &#39;on&#39; and disturb_count &gt; 0:
+        print(&#34;免打扰模式开启，自动执行...&#34;)
+        disturb_count -= 1
+    else:
+        action = &#39;继续&#39;
+        while action.lower() == &#39;继续&#39;:
+            display_accounts(accounts)
+            choice = input(&#34;要修改或增加账号吗？(修改/增加/执行): &#34;)
 
-    while action.lower() == &#39;继续&#39;:
-        display_accounts(accounts)
-        choice = input(&#34;要修改或增加账号吗？(修改/增加/执行): &#34;)
+            if choice.lower() == &#39;修改&#39;:
+                index = int(input(&#34;请输入要修改的账号序号: &#34;)) - 1
+                if 0 &lt;= index &lt; len(accounts):
+                    new_mobile = input(&#34;输入新的手机号: &#34;)
+                    new_password = input(&#34;输入新的密码: &#34;)
+                    accounts[index] = yiban(new_mobile, new_password)
+                    save_accounts(accounts, disturb_mode, disturb_count)
+                    print(&#34;账户已更新&#34;)
+            elif choice.lower() == &#39;增加&#39;:
+                num_new_accounts = int(input(&#34;请输入要增加的账户数: &#34;))
+                for _ in range(num_new_accounts):
+                    mobile = input(&#34;请输入新手机号: &#34;)
+                    password = input(&#34;请输入新密码: &#34;)
+                    accounts.append(yiban(mobile, password))
+                save_accounts(accounts, disturb_mode, disturb_count)
+                print(&#34;新账户已添加&#34;)
+            elif choice.lower() == &#39;执行&#39;:
+                break
 
-        if choice.lower() == &#39;修改&#39;:
-            index = int(input(&#34;请输入要修改的账号序号: &#34;)) - 1
-            if 0 &lt;= index &lt; len(accounts):
-                new_mobile = input(&#34;输入新的手机号: &#34;)
-                new_password = input(&#34;输入新的密码: &#34;)
-                accounts[index] = yiban(new_mobile, new_password)
-                save_accounts(accounts)
-                print(&#34;账户已更新&#34;)
-        elif choice.lower() == &#39;增加&#39;:
-            num_new_accounts = int(input(&#34;请输入要增加的账户数: &#34;))
-            for _ in range(num_new_accounts):
-                mobile = input(&#34;请输入新手机号: &#34;)
-                password = input(&#34;请输入新密码: &#34;)
-                accounts.append(yiban(mobile, password))
-            save_accounts(accounts)
-            print(&#34;新账户已添加&#34;)
-        elif choice.lower() == &#39;执行&#39;:
-            break
+            action = input(&#34;是否继续修改或增加账户？(继续/执行): &#34;)
 
-        action = input(&#34;是否继续修改或增加账户？(继续/执行): &#34;)
+        if disturb_count == 0:  # 当不在免打扰模式或免打扰次数用完时询问
+            disturb_mode = &#39;on&#39; if input(&#34;是否开启免打扰模式？(是/否): &#34;).lower() == &#39;是&#39; else &#39;off&#39;
+            disturb_count = 7 if disturb_mode == &#39;on&#39; else 0
+
+    save_accounts(accounts, disturb_mode, disturb_count)
 
     for account in accounts:
         account.loginin()
@@ -535,11 +544,28 @@ def main():
 if __name__ == &#34;__main__&#34;:
     main()
 </code></pre><h1 id="一点点小改动">一点点小改动</h1>
-<p>鉴于本人以Arch系为主力系统，这个脚本有几处在Linux上并不适用。</p>
-<p>arch上并不能直接执行pip install，最恰当的方法应该是给他来个虚拟环境。基于此，jsonpath是用不了的。且msvcrt是一个Windows特定的模块，因此在Linux上不可用。</p>
-<p>于是进行一个代码的修改，个人选择安装AUR中收录的jsonpath_rw：</p>
-<pre tabindex="0"><code>yay -S python-jsonpath-rw 
-</code></pre><p>同时对应着改一下上面脚本的那些地方就行，例如：</p>
+<p>这个脚本有几处在Arch Linux上并不适用。</p>
+<p>pip会往系统里面带脏东西，所以并不能直接执行pip install。会有如下报错：</p>
+<pre tabindex="0"><code>pip install numpy
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─&gt; To install Python packages system-wide, try &#39;pacman -S
+    python-xyz&#39;, where xyz is the package you are trying to
+    install.
+    
+    If you wish to install a non-Arch-packaged Python package,
+    create a virtual environment using &#39;python -m venv path/to/venv&#39;.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip.
+    
+    If you wish to install a non-Arch packaged Python application,
+    it may be easiest to use &#39;pipx install xyz&#39;, which will manage a
+    virtual environment for you. Make sure you have python-pipx
+    installed via pacman.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+</code></pre><p>最恰当的方法应该是给他来个虚拟环境。且msvcrt是一个Windows特定的模块，在Linux上不可用，可以代码里面直接给它扬了：</p>
 <pre tabindex="0"><code>...# 上述代码照抄
 
 def loginin(self): # 登陆校验
@@ -547,27 +573,47 @@ def loginin(self): # 登陆校验
     loginin = self.login() # 登录
     if loginin != 1:
         print(&#34;用户&#34;,loginin,&#34;登陆失败，请处理&#34;)
-        print(&#34;按任意键退出脚本&#34;)
-        # 移除了msvcrt.getch()，因为在Linux上不可用
+        print(&#34;按任意键退出脚本&#34;)# 移除了msvcrt.getch()，因为在Linux上不可用
         input(&#34;按回车键退出脚本&#34;)
         sys.exit()
     self.authorization(0) # 校本化授权先执行
     return
     
 ...# 下面照抄
-</code></pre><p>在调用jsonpath的地方进行作如下修改：</p>
-<pre tabindex="0"><code>self.Address = jsonpath_rw.parse(&#39;$..Address&#39;).find(Position)[0].value  # 获取可签到位置 地址
-self.LngLat = jsonpath_rw.parse(&#39;$..LngLat&#39;).find(Position)[0].value    # 获取可签到位置 经纬度
-</code></pre><p>然后就是考虑在Linux上如何进行定时任务的问题，经某位lockey朋友启发选择直接上大家所熟悉的crontab：</p>
+</code></pre><p>构建虚拟环境需要：</p>
+<pre tabindex="0"><code>python3 -m venv /path/to/new/virtual/environment
+
+source /path/to/new/virtual/environment/bin/activate
+
+pip install requests numpy jsonpath
+
+deactivate
+</code></pre><p>在你的py文件目录下创建一个.sh：</p>
+<pre tabindex="0"><code>#!/bin/bash
+
+VENV_DIR=&#34;/path/to/your/venv&#34;
+
+SCRIPT_PATH=&#34;/path/to/your/script.py&#34;
+
+source &#34;$VENV_DIR/bin/activate&#34;
+
+python &#34;$SCRIPT_PATH&#34;
+
+deactivate
+
+chmod +x /path/to/your/script.sh
+/path/to/your/script.sh
+</code></pre><p>然后就是考虑在Linux上如何进行定时任务的问题，经某位lockey朋友启发选择直接上大家所熟悉的cron：</p>
 <pre tabindex="0"><code>sudo pacman -S cronie
 sudo systemctl start cronie.service
 sudo systemctl enable cronie.service
 
 crontab -e # 转入nano编辑
 0 0 * * * /usr/bin/python /path/to/your/script.py # 自行照格式修改
+
+#ctrl+o写入，enter，ctrl+x退出
+
 crontab -l # 检查一下有没有写好
-cd /path/to/your
-chmod +x /path/to/your/script.py
 </code></pre><p><strong>DONE.</strong></p>
 ]]></content:encoded>
     </item>
