@@ -2,17 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>nanimonai&#39;s Blog</title>
-    <link>https://blog.nanimonai.org/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on nanimonai&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 19 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.nanimonai.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Electronics Design Contest 1</title>
+      <link>http://localhost:1313/posts/tech/electronics-design-contest-before/</link>
+      <pubDate>Wed, 28 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/posts/tech/electronics-design-contest-before/</guid>
+      <description>无法逃避迷雾丛林，失去了星辰的指引。</description>
+      <content:encoded><![CDATA[<p>应某人之邀，写文以记述经历，即使失败，也可以给后人留下一点宝贵经验。</p>
+<p>事实证明他是正确的。</p>
+<p>关于自制PCB的环节进行简述：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="m">1</span><span class="l">. 嘉立创画图</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">2</span><span class="l">. 生成文件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">3</span><span class="l">. 导出掩膜(电路的镜像)，打印在掩膜纸上</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">4</span><span class="l">. 压印，采用热转印机</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">5</span><span class="l">. 蚀刻，环保腐蚀液蚀刻</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="m">6</span><span class="l">. 镀锡 (锡膏刷在铜板上，上加热台) (可选步骤)</span><span class="w">
+</span></span></span></code></pre></div><p>这是截止到2024年8月28日的生产线，未来会进行改进。这样只能蚀刻出单层板，如果有一些被隔开如VCC、VEE时需要填充区域飞线。热转印的时候需要注意，过程高温需要有人看守，切割铜板切勿戴手套。蚀刻步骤时需要戴一次性手套，不能直接接触腐蚀液。使用专用的烧杯盛放腐蚀液，烧杯加热台加热烧杯使其蚀刻更快。但不宜过久，导致可能的掩膜脱落线路被蚀刻。如需打孔需要注意小钻头的转速不能过高，会崩飞钻头，高速旋转的钻头飞出来是很可怕的。操作加热台镀锡的时候需要在锡融化的时候刮平，后面好上贴片或者飞线。</p>
+<p>自制板子也有可能出现一些离奇的原因未知的问题，例如原理图相同的lcr电桥模块自制时波形非常始终不能令人满意，在进行修改的时候，我他妈把sma吹下来的时候直接把那个中间内孔的覆铜带下来了。传奇红温。后面尝试嘉立创打了一块就没问题，参考设计和抄板子也很重要。</p>
+<p><img loading="lazy" src="https://s3.tebi.io/img.nanimonai.org/lcr.png" alt=""  />
+</p>
+<p>剩下非常多的是经验的区别，亲身经历后无法解决，借鉴又借鉴不到类似情况的东西，就会红温。时机恰当的时候，共地不完整也会干碎心态。</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>BabyRSA</title>
-      <link>https://blog.nanimonai.org/posts/tech/babyrsa/</link>
+      <link>http://localhost:1313/posts/tech/babyrsa/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/tech/babyrsa/</guid>
+      <guid>http://localhost:1313/posts/tech/babyrsa/</guid>
       <description>初试Crypto</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
 <p>我是🕊大王，本来4.6一比完就想写了，硬鸽到今天。主要也是因为一堆作业考试给应付得手忙脚乱的。</p>
@@ -152,10 +176,10 @@ print(flag.decode(&#39;utf-8&#39;))
     
     <item>
       <title>Research on the principle of automatic punch-in</title>
-      <link>https://blog.nanimonai.org/posts/tech/research-on-the-principle-of-automatic-punch-in/</link>
+      <link>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</link>
       <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/tech/research-on-the-principle-of-automatic-punch-in/</guid>
+      <guid>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</guid>
       <description>应用</description>
       <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
 <p>近日，打卡更新方式，由之前转移到了某一新平台上。求知欲驱使进行研究。写的不周，还请包含，同时我要非常感谢lockey中的一位热心朋友不厌其烦地为我指点迷津。</p>
@@ -620,10 +644,10 @@ crontab -l # 检查一下有没有写好
     
     <item>
       <title>Smart car - freshman trash version</title>
-      <link>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</link>
+      <link>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</link>
       <pubDate>Mon, 15 Apr 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</guid>
+      <guid>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</guid>
       <description>A good try for young</description>
       <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
 <p>2024校EEA举办无人车的循迹避障赛。欣然规往。</p>
@@ -679,10 +703,10 @@ else if (SL2 == 0 &amp;&amp; SL1 == 0 &amp;&amp; SR1 == 0 &amp;&amp; SR2 == 0 &a
     
     <item>
       <title>WeCom check-in crack</title>
-      <link>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</link>
+      <link>http://localhost:1313/posts/tech/wecom-check-in-crack/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</guid>
+      <guid>http://localhost:1313/posts/tech/wecom-check-in-crack/</guid>
       <description>Out of time</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
 <p>学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。</p>
@@ -745,10 +769,10 @@ exit();
     
     <item>
       <title>舞文弄墨</title>
-      <link>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
+      <link>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
       <pubDate>Mon, 30 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
+      <guid>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
       <description>现代的青年愈发得迷失了。我也一样。所谓沉默，沉默的大多数。所谓嘈杂。一位看客，或许会好过突如其来的死亡吧。害怕失去害怕未知，害怕自己会对现实抱有期望
 听起来好像可笑的很。在一个青春中畏手畏脚，不敢做出承诺，也不怎么负责任。几年后回头看看，那会是庆幸还是懊悔？老者们责备，嘲笑年轻人的爱情，认为其只是源于欣赏，源于心理上虚假的自我幻想。青年人却嘲讽老者的“迂”，自以为能为另一半负起责任，能够互相包容。
 好像都有些偏激。
@@ -773,10 +797,10 @@ exit();
     
     <item>
       <title>牢骚</title>
-      <link>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</link>
+      <link>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</link>
       <pubDate>Sat, 28 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</guid>
+      <guid>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</guid>
       <description>找回了我用于记录往事的笔记本，近来手头的书也都还没读完，就权且写一些旧东西吧。
 2023.5 思想总是跑在前面。他看得太远，比只能活在当下的身体还远得多。拿掉希望就是让思想重新回归身体，而且身体总有一天会腐烂。
 2023.10 &amp;hellip;
@@ -808,10 +832,10 @@ exit();
     
     <item>
       <title>Blog Test</title>
-      <link>https://blog.nanimonai.org/posts/think/blog-test/</link>
+      <link>http://localhost:1313/posts/think/blog-test/</link>
       <pubDate>Thu, 28 Sep 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/posts/think/blog-test/</guid>
+      <guid>http://localhost:1313/posts/think/blog-test/</guid>
       <description>这是我的第一篇文章</description>
       <content:encoded><![CDATA[<p><strong>Hello,world!</strong></p>
 <p>写下这些字时，我是一名迷茫的电脑小白，进入浩如烟海的赛博世界，越是走到深处越会觉得自己无知，觉得自己无从下手。</p>
@@ -835,10 +859,10 @@ exit();
     
     <item>
       <title>Link</title>
-      <link>https://blog.nanimonai.org/link/</link>
+      <link>http://localhost:1313/link/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/link/</guid>
+      <guid>http://localhost:1313/link/</guid>
       <description>何必使用火刑具呢？他人，即地狱。</description>
       <content:encoded><![CDATA[<a target="_blank" href=https://blog.iceyear.eu.org title=Ice&#32;Year class="friendurl">
   <div class="frienddiv">
@@ -933,10 +957,10 @@ exit();
     
     <item>
       <title>关于</title>
-      <link>https://blog.nanimonai.org/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.nanimonai.org/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>我是一个爱打游戏的小屁孩，目前正在努力学习跟上大人们的步伐，却又畏惧于大人们世界的惊涛骇浪，可能是我还没有准备好去经受苦难。
 本项目由 Hugo 生成
 主题 Paper 由 adityatelange 开发</description>
