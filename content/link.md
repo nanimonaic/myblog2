@@ -25,4 +25,4 @@ hidemeta: true
 
 {{< friend name="金毛犬" url="https://jinmaoquan12.github.io/bopmomio/" logo="https://telegraph-image-bhn.pages.dev/file/6707609445463b6fbe045.png" word="可爱的学妹" >}}
 
-{{< friend name="watermeko" url="https://watermeko.github.io" logo="https://1896132f.telegraph-image-6ky.pages.dev/file/396c40798ba7cfe4a5595.jpg" word="" >}}
+{{< friend name="watermeko" url="https://blog.watermeko.icu/" logo="https://image.watermeko.icu/file/3214b050c8da098f6b0c2.jpg" word="" >}}
