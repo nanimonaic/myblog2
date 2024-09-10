@@ -55,7 +55,7 @@ params:
   mainSections:
     - post
 
-
+  math: true
 
   giscus:
     comments:
@@ -106,7 +106,7 @@ params:
   # home-info mode
   homeInfoParams:
     Title: "悲鸣"
-    Content: “我们义无反顾地试着后悔，我们声嘶力竭地假装呐喊，我们万分惋惜地浪费着，用尽一切换来的纸张”
+    Content: “生前何必久睡，死后自会长眠”
 
   cover:
     hidden: false # hide everywhere but not in structured data
