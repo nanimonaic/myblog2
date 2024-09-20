@@ -2,23 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.nanimonai.org/posts/tech/first-try-on-re/</loc>
-    <lastmod>2024-09-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.nanimonai.org/</loc>
-    <lastmod>2024-09-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.nanimonai.org/posts/</loc>
-    <lastmod>2024-09-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.nanimonai.org/tech/</loc>
-    <lastmod>2024-09-10T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.nanimonai.org/posts/tech/electronics-design-contest-before/</loc>
     <lastmod>2024-08-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.nanimonai.org/posts/tech/babyrsa/</loc>
-    <lastmod>2024-04-19T00:00:00+00:00</lastmod>
+    <loc>https://blog.nanimonai.org/</loc>
+    <lastmod>2024-08-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.nanimonai.org/posts/</loc>
+    <lastmod>2024-08-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.nanimonai.org/tech/</loc>
+    <lastmod>2024-08-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.nanimonai.org/posts/tech/research-on-the-principle-of-automatic-punch-in/</loc>
     <lastmod>2024-04-18T00:00:00+00:00</lastmod>
@@ -40,6 +34,10 @@
   </url><url>
     <loc>https://blog.nanimonai.org/posts/think/blog-test/</loc>
     <lastmod>2023-09-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.nanimonai.org/posts/tech/babyrsa/</loc>
+  </url><url>
+    <loc>https://blog.nanimonai.org/posts/tech/first-try-on-re/</loc>
   </url><url>
     <loc>https://blog.nanimonai.org/categories/</loc>
   </url><url>
