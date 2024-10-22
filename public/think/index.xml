@@ -2,17 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>思考 on nanimonai&#39;s Blog</title>
-    <link>https://blog.nanimonai.org/think/</link>
+    <link>http://localhost:1313/think/</link>
     <description>Recent content in 思考 on nanimonai&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.136.3</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 30 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.nanimonai.org/think/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Oct 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/think/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Turing</title>
+      <link>http://localhost:1313/posts/think/tul/</link>
+      <pubDate>Wed, 02 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/think/tul/</guid>
+      <description>无价值的文章</description>
+      <content:encoded><![CDATA[<h1 id="此篇目为游戏感想"><strong>此篇目为游戏感想</strong></h1>
+<p>在游戏《Turing Complete》中，我遇到了如下关卡，令我印象深刻：</p>
+<h2 id="相反数">相反数</h2>
+<p><img loading="lazy" src="https://img.nanimonai.org/xiangfan.png" alt=""  />
+</p>
+<p>做到相反数，一个二进制的相反数其实就是它的补码。为了区分正负，二进制数用最高位来表示符号，1为负，0为正。用8位二进制数举例，0000 0001=1，1000 0001=-1。</p>
+<p>十进制中相反数直接在数字前加负号就可，那么二进制的相反数怎么求呢？不管是十进制还是二进制，相反数的意义都是指：该数+该数的相反数=0。比如 0000 0011 + 它的相反数 = 0000 0000 ，那么 0000 0011的相反数=0000 0000 - 0000 0011 = 1111 1101，直观上理解就是一个数的相反数=<strong>对该数按位取反再加1</strong>。</p>
+<p>下面从理论推导一下：对于某个不为0的二进制数来说，该数+它的相反数=0000 0000，那么该结果一定是由于进位溢出造成的（用二进制相加看，不要用十进制看），相当于1111 1111 + 0000 0001 = 0000 0000，用未溢出的值代替0000 0000，即 该数 + 它的相反数=1111 1111 + 0000 0001，⟶ 它的相反数 = 1111 1111 - 该数 +0000 0001，1111 1111 - 该数 就相当于对该数按位取反，所以二进制数的相反数就是对其按位取反加1。</p>
+<p>我们自己理解的话0000 0011=3，它的相反数为-3=1000 0011，但0000 0011 + 1000 0011 != 0000 0000,所以计算机就引入了补码，相当于上面的相反数的表示。将人容易理解的二进制称为原码，计算机实际使用时用的是补码。正数的补码就是自己，负数的补码为按位取反加1。</p>
+<p>对于1000 0011来说，若其为原码，则表示-3；若其为补码，则表示(-1)<em>2^7 + 1</em>2^1 + 1*2^0 = -125。</p>
+<h2 id="计数器">计数器</h2>
+<p>这题其实不算难，但是我楞了很久。</p>
+<p>题目：</p>
+<p><img loading="lazy" src="https://img.nanimonai.org/yaoqiu.png" alt=""  />
+</p>
+<p>如下设计:</p>
+<p><img loading="lazy" src="https://img.nanimonai.org/jishu.png" alt=""  />
+</p>
+<p>寄存器会始终把数据存储并输出，并且直接输出到输出端。到下一段后，因为有ADD在，会+1（高电平就是1），然后再输出出来，重新写入到寄存器。左侧的高电平时为了始终启用寄存器的读取和写入功能。这样，在不覆盖的状态下，寄存器会每刻都+1。只需要用到一个选通器，选择让哪个数据覆盖到寄存器即可。</p>
+<h2 id="锁存器等">锁存器等</h2>
+<p>这个是我在游戏的提示里面看到的，由循环依赖衍生而出。与非门锁存器。游戏里面一般不允许出现循环依赖，但它在现实世界中是广泛存在的。</p>
+<p>恶补触发器的原理，电平、脉冲和边缘触发器的不同等（参考数电课本）。然后对知识进行一个接轨，把所以已知的内容和生活的认知形成闭环。感觉整个体系对于现在态和未来态要有一定的敏感性，就是不能混淆，然后看时序图得认真看哪个是CLK。正常看时序报告即可，也算是把之前移位寄存器的课给补上了。</p>
+<p>忽然就想起来这种概念我第一次接触是在哪里了，是mc的记忆电路。</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>舞文弄墨</title>
-      <link>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
+      <link>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
       <pubDate>Mon, 30 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
+      <guid>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
       <description>&lt;p&gt;  现代的青年愈发得迷失了。我也一样。所谓沉默，沉默的大多数。所谓嘈杂。一位看客，或许会好过突如其来的死亡吧。害怕失去害怕未知，害怕自己会对现实抱有期望&lt;/p&gt;
 &lt;p&gt;听起来好像可笑的很。在一个青春中畏手畏脚，不敢做出承诺，也不怎么负责任。几年后回头看看，那会是庆幸还是懊悔？老者们责备，嘲笑年轻人的爱情，认为其只是源于欣赏，源于心理上虚假的自我幻想。青年人却嘲讽老者的“迂”，自以为能为另一半负起责任，能够互相包容。&lt;/p&gt;
 &lt;p&gt;  好像都有些偏激。&lt;/p&gt;
@@ -35,13 +66,11 @@
 <p>  中国人极善造神，造了再毁，毁了再造，乐此不疲。</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>牢骚</title>
-      <link>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</link>
+      <link>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</link>
       <pubDate>Sat, 28 Oct 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</guid>
+      <guid>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</guid>
       <description>&lt;p&gt;  找回了我用于记录往事的笔记本，近来手头的书也都还没读完，就权且写一些旧东西吧。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;20235&#34;&gt;2023.5&lt;/h1&gt;
@@ -74,13 +103,11 @@
 <p>  神性的解放，人性的回归。</p>
 ]]></content:encoded>
     </item>
-    
     <item>
       <title>Blog Test</title>
-      <link>https://blog.nanimonai.org/posts/think/blog-test/</link>
+      <link>http://localhost:1313/posts/think/blog-test/</link>
       <pubDate>Thu, 28 Sep 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.nanimonai.org/posts/think/blog-test/</guid>
+      <guid>http://localhost:1313/posts/think/blog-test/</guid>
       <description>这是我的第一篇文章</description>
       <content:encoded><![CDATA[<p><strong>Hello,world!</strong></p>
 <p>写下这些字时，我是一名迷茫的电脑小白，进入浩如烟海的赛博世界，越是走到深处越会觉得自己无知，觉得自己无从下手。</p>
@@ -101,6 +128,5 @@
 </ul>
 ]]></content:encoded>
     </item>
-    
   </channel>
 </rss>

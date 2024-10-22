@@ -1,7 +1,9 @@
 baseURL: "https://blog.nanimonai.org/"
 title: nanimonai's Blog
 languageCode: "zh" # 语 言 编 码 (如 简 体 中 文 : zh)
-paginate: 6
+pagination:
+  pagerSize: 10
+
 theme: PaperMod
 author: "nanimonai"
 defaultContentLanguage: "zh"
@@ -98,9 +100,7 @@ params:
     imageHeight: 120
     imageTitle: my image
   comments: true
-  socialIcons:
-    - name: Github
-      url: "https://github.com/nanimonaic"   
+  social: true
 
 
   # home-info mode
