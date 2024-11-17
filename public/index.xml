@@ -2,17 +2,92 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>nanimonai&#39;s Blog</title>
-    <link>https://blog.nanimonai.org/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on nanimonai&#39;s Blog</description>
     <generator>Hugo -- 0.138.0</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 02 Oct 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.nanimonai.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Nov 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rescue of a Faulty Monitor</title>
+      <link>http://localhost:1313/posts/tech/rescue-of-a-faulty-monitor/</link>
+      <pubDate>Sun, 17 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/tech/rescue-of-a-faulty-monitor/</guid>
+      <description>低品質のブログ</description>
+      <content:encoded><![CDATA[<h1 id="失灵显示器拯救记"><strong>失灵显示器拯救记</strong></h1>
+<p>​本人在10月份换成了MATX，电脑也从N系笔记本来到了AMD的6750GRE</p>
+<p>入手一2.5k16寸显示器。本来想自制的，后面听朋友说非常麻烦且容易踩坑，DIY花销不一定比自己小，于是直接购入别人已经做好的所谓A-屏。在我这台的情况是所谓A-屏就是有一个0.1mm不到的色块不显示，个人认为还能接受并且价格也还挺美丽</p>
+<p>​然后问题就来了，小作坊用料就是怪，即这个显示器跑不到预想的分辨率和刷新率。在Windows系统上我的解决办法是使用AMD Software生成一份配置文件，其中他会写一个对于刷新率的感叹号但是你不用去管它。来到Arch我就有些头疼了，他直接给我画面干撕裂了，然后设置界面是经典的“仅支持 640x350”，遂尝试</p>
+<h2 id="失败的尝试">失败的尝试：</h2>
+<p>GPT师傅建议我去使用cvt创建自定义模式</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-1" data-lang="1"><span class="line"><span class="cl">cvt 2560 1440 240
+</span></span><span class="line"><span class="cl">xrandr --newmode &#34;2560x1600_240.00&#34; 808.75 2560 2792 3072 3584 1440 1443 1448 1493 -hsync +vsync
+</span></span><span class="line"><span class="cl">xrandr --addmode DP-1 &#34;2560x1600_240.00&#34;
+</span></span><span class="line"><span class="cl">xrandr --output DP-1 --mode &#34;2560x1600_240.00&#34;
+</span></span></code></pre></div><p>类似这样，一个 RRSetCrtcConfig 错误，表明设置的显示模式参数超出了范围</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-1" data-lang="1"><span class="line"><span class="cl">X Error of failed request:  BadValue (integer parameter out of range for operation)Major opcode of failed request:  140 (RANDR)Minor opcode of failed request:  21 (RRSetCrtcConfig)Value in failed request:  0x78Serial number of failed request:  28
+</span></span><span class="line"><span class="cl">Current serial number in output stream:  28
+</span></span></code></pre></div><p>看下日志的 EDID (Extended display identification data) 怎么说</p>
+<pre tabindex="0"><code class="language-sudo" data-lang="sudo">&gt; sudo get-edid | parse-edid
+This is read-edid version 3.0.2. Prepare for some fun.
+Attempting to use i2c interface
+Problem requesting slave address: Device or resource busy
+No EDID on bus 1
+No EDID on bus 2
+No EDID on bus 3
+No EDID on bus 4
+No EDID on bus 5
+No EDID on bus 6
+No EDID on bus 7
+No EDID on bus 8
+No EDID on bus 10
+2 potential busses found: 9 11
+Will scan through until the first EDID is found.
+Pass a bus number as an option to this program to go only for that one.
+256-byte EDID successfully retrieved from i2c bus 9
+Looks like i2c was successful. Have a good day.
+You seem to have too many extension blocks. Will not continue to parse
+Something strange happened. Please contact the author,
+Matthew Kern at &lt;pyrophobicman@gmail.com&gt;
+</code></pre><p>问题：EDID 读取出现异常，显示有太多的扩展块；显示模式创建失败，可能是因为像素时钟超出了硬件支持范围</p>
+<p>后面使用gtf创建不同刷新率和分辨率的样式，都不行</p>
+<p>值得一提的是，Linux读取和显示EDID信息是使用read-edid这类或者X.Org Server这样去读取的，而在Windows中则是PowerStrip。而EDID和DDC又是老朋友，通过DDC传输（传奇I2C）</p>
+<h2 id="成功的尝试">成功的尝试：</h2>
+<p>先创建一个新的 xorg 配置文件，专门处理 EDID 问题</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-1" data-lang="1"><span class="line"><span class="cl">sudo nano /etc/X11/xorg.conf.d/20-amdgpu.conf
+</span></span></code></pre></div><p>里面添加：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-1" data-lang="1"><span class="line"><span class="cl">Section &#34;Device&#34;
+</span></span><span class="line"><span class="cl">    Identifier &#34;AMD&#34;
+</span></span><span class="line"><span class="cl">    Driver &#34;amdgpu&#34;
+</span></span><span class="line"><span class="cl">    Option &#34;TearFree&#34; &#34;true&#34;
+</span></span><span class="line"><span class="cl">    Option &#34;DRI&#34; &#34;3&#34;
+</span></span><span class="line"><span class="cl">    Option &#34;IgnoreEDID&#34; &#34;false&#34;
+</span></span><span class="line"><span class="cl">    Option &#34;CustomEDID&#34; &#34;DP-1:/etc/X11/edid.bin&#34;
+</span></span><span class="line"><span class="cl">    Option &#34;ModeValidation&#34; &#34;AllowNonEdidModes&#34;
+</span></span><span class="line"><span class="cl">EndSection
+</span></span></code></pre></div><p>然后去修改内核参数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-1" data-lang="1"><span class="line"><span class="cl">sudo nano /etc/default/grub
+</span></span></code></pre></div><p>在 GRUB_CMDLINE_LINUX_DEFAULT 中加入：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-1" data-lang="1"><span class="line"><span class="cl">video=DP-1:2560x1600@200 amdgpu.dc=1 amdgpu.dpm=1 amdgpu.modeset=1  
+</span></span></code></pre></div><p>这边我看了一眼我的配置文件这行还写着nvidia_drm.modeset=1，顺手给删了（相信暂时应该不会换回N系显卡）</p>
+<p>修改后输入如下代码并重启</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-1" data-lang="1"><span class="line"><span class="cl">sudo grub-mkconfig -o /boot/grub/grub.cfg
+</span></span></code></pre></div><p>Reboot后看一眼</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-1" data-lang="1"><span class="line"><span class="cl">&gt; xrandr --props
+</span></span><span class="line"><span class="cl">DP-1 connected 2560x1600+0+0 (normal left inverted right x axis y axis) 0mm x 0mm
+</span></span><span class="line"><span class="cl">        RANDR Emulation: 1 
+</span></span><span class="line"><span class="cl">        non-desktop: 0 
+</span></span><span class="line"><span class="cl">                supported: 0, 1
+</span></span><span class="line"><span class="cl">   2560x1600    199.86*+
+</span></span><span class="line"><span class="cl">    ...
+</span></span></code></pre></div><p>说明解决了</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>Turing</title>
-      <link>https://blog.nanimonai.org/posts/think/tul/</link>
+      <link>http://localhost:1313/posts/think/tul/</link>
       <pubDate>Wed, 02 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/tul/</guid>
+      <guid>http://localhost:1313/posts/think/tul/</guid>
       <description>无价值的文章</description>
       <content:encoded><![CDATA[<h1 id="此篇目为游戏感想"><strong>此篇目为游戏感想</strong></h1>
 <p>在游戏《Turing Complete》中，我遇到了如下关卡，令我印象深刻：</p>
@@ -41,9 +116,9 @@
     </item>
     <item>
       <title>First try on RE</title>
-      <link>https://blog.nanimonai.org/posts/tech/first-try-on-re/</link>
+      <link>http://localhost:1313/posts/tech/first-try-on-re/</link>
       <pubDate>Tue, 10 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/tech/first-try-on-re/</guid>
+      <guid>http://localhost:1313/posts/tech/first-try-on-re/</guid>
       <description>没有悲悯他的神明，命运倒向金钱的天平。</description>
       <content:encoded><![CDATA[<h1 id="第n次re碰壁">第N次RE碰壁</h1>
 <p>​	近来参与尝试 BaseCTF 赛事中的“NEURO爱数学”题，结合官方WP进行总结。</p>
@@ -234,9 +309,9 @@ print(coefficients[::-1])
     </item>
     <item>
       <title>Electronics Design Contest 1</title>
-      <link>https://blog.nanimonai.org/posts/tech/electronics-design-contest-before/</link>
+      <link>http://localhost:1313/posts/tech/electronics-design-contest-before/</link>
       <pubDate>Wed, 28 Aug 2024 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/tech/electronics-design-contest-before/</guid>
+      <guid>http://localhost:1313/posts/tech/electronics-design-contest-before/</guid>
       <description>无法逃避迷雾丛林，失去了星辰的指引。</description>
       <content:encoded><![CDATA[<p>应某人之邀，写文以记述经历，即使失败，也可以给后人留下一点宝贵经验。</p>
 <p>事实证明他是正确的。</p>
@@ -257,9 +332,9 @@ print(coefficients[::-1])
     </item>
     <item>
       <title>BabyRSA</title>
-      <link>https://blog.nanimonai.org/posts/tech/babyrsa/</link>
+      <link>http://localhost:1313/posts/tech/babyrsa/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/tech/babyrsa/</guid>
+      <guid>http://localhost:1313/posts/tech/babyrsa/</guid>
       <description>初试Crypto</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
 <p>我是🕊大王，本来4.6一比完就想写了，硬鸽到今天。主要也是因为一堆作业考试给应付得手忙脚乱的。</p>
@@ -398,9 +473,9 @@ print(flag.decode(&#39;utf-8&#39;))
     </item>
     <item>
       <title>Research on the principle of automatic punch-in</title>
-      <link>https://blog.nanimonai.org/posts/tech/research-on-the-principle-of-automatic-punch-in/</link>
+      <link>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</link>
       <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/tech/research-on-the-principle-of-automatic-punch-in/</guid>
+      <guid>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</guid>
       <description>应用</description>
       <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
 <p>近日，打卡更新方式，由之前转移到了某一新平台上。求知欲驱使进行研究。写的不周，还请包含，同时我要非常感谢lockey中的一位热心朋友不厌其烦地为我指点迷津。</p>
@@ -864,9 +939,9 @@ crontab -l # 检查一下有没有写好
     </item>
     <item>
       <title>Smart car - freshman trash version</title>
-      <link>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</link>
+      <link>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</link>
       <pubDate>Mon, 15 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</guid>
+      <guid>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</guid>
       <description>A good try for young</description>
       <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
 <p>2024校EEA举办无人车的循迹避障赛。欣然规往。</p>
@@ -921,9 +996,9 @@ else if (SL2 == 0 &amp;&amp; SL1 == 0 &amp;&amp; SR1 == 0 &amp;&amp; SR2 == 0 &a
     </item>
     <item>
       <title>WeCom check-in crack</title>
-      <link>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</link>
+      <link>http://localhost:1313/posts/tech/wecom-check-in-crack/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</guid>
+      <guid>http://localhost:1313/posts/tech/wecom-check-in-crack/</guid>
       <description>Out of time</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
 <p>学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。</p>
@@ -985,9 +1060,9 @@ exit();
     </item>
     <item>
       <title>舞文弄墨</title>
-      <link>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
+      <link>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</link>
       <pubDate>Mon, 30 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
+      <guid>http://localhost:1313/posts/think/%E8%88%9E%E6%96%87%E5%BC%84%E5%A2%A8/</guid>
       <description>&lt;p&gt;  现代的青年愈发得迷失了。我也一样。所谓沉默，沉默的大多数。所谓嘈杂。一位看客，或许会好过突如其来的死亡吧。害怕失去害怕未知，害怕自己会对现实抱有期望&lt;/p&gt;
 &lt;p&gt;听起来好像可笑的很。在一个青春中畏手畏脚，不敢做出承诺，也不怎么负责任。几年后回头看看，那会是庆幸还是懊悔？老者们责备，嘲笑年轻人的爱情，认为其只是源于欣赏，源于心理上虚假的自我幻想。青年人却嘲讽老者的“迂”，自以为能为另一半负起责任，能够互相包容。&lt;/p&gt;
 &lt;p&gt;  好像都有些偏激。&lt;/p&gt;
@@ -1012,9 +1087,9 @@ exit();
     </item>
     <item>
       <title>牢骚</title>
-      <link>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</link>
+      <link>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</link>
       <pubDate>Sat, 28 Oct 2023 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/%E7%89%A2%E9%AA%9A/</guid>
+      <guid>http://localhost:1313/posts/think/%E7%89%A2%E9%AA%9A/</guid>
       <description>&lt;p&gt;  找回了我用于记录往事的笔记本，近来手头的书也都还没读完，就权且写一些旧东西吧。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;20235&#34;&gt;2023.5&lt;/h1&gt;
@@ -1049,9 +1124,9 @@ exit();
     </item>
     <item>
       <title>Blog Test</title>
-      <link>https://blog.nanimonai.org/posts/think/blog-test/</link>
+      <link>http://localhost:1313/posts/think/blog-test/</link>
       <pubDate>Thu, 28 Sep 2023 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/posts/think/blog-test/</guid>
+      <guid>http://localhost:1313/posts/think/blog-test/</guid>
       <description>这是我的第一篇文章</description>
       <content:encoded><![CDATA[<p><strong>Hello,world!</strong></p>
 <p>写下这些字时，我是一名迷茫的电脑小白，进入浩如烟海的赛博世界，越是走到深处越会觉得自己无知，觉得自己无从下手。</p>
@@ -1074,9 +1149,9 @@ exit();
     </item>
     <item>
       <title>Link</title>
-      <link>https://blog.nanimonai.org/link/</link>
+      <link>http://localhost:1313/link/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/link/</guid>
+      <guid>http://localhost:1313/link/</guid>
       <description>何必使用火刑具呢？他人，即地狱。</description>
       <content:encoded><![CDATA[<a target="_blank" href=https://blog.iceyear.eu.org title=Ice&#32;Year class="friendurl">
   <div class="frienddiv">
@@ -1170,9 +1245,9 @@ exit();
     </item>
     <item>
       <title>关于</title>
-      <link>https://blog.nanimonai.org/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://blog.nanimonai.org/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>&lt;p&gt;我是一个爱打游戏的小屁孩，目前正在努力学习跟上大人们的步伐，却又畏惧于大人们世界的惊涛骇浪，可能是我还没有准备好去经受苦难。&lt;/p&gt;
 &lt;p&gt;本项目由 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 生成&lt;/p&gt;
 &lt;p&gt;主题 &lt;a href=&#34;https://github.com/adityatelange/hugo-Paper&#34;&gt;Paper&lt;/a&gt; 由 &lt;a href=&#34;https://github.com/adityatelange&#34;&gt;adityatelange&lt;/a&gt; 开发&lt;/p&gt;</description>
