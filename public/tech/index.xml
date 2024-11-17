@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>技术 on nanimonai&#39;s Blog</title>
-    <link>http://localhost:1313/tech/</link>
+    <link>https://blog.nanimonai.org/tech/</link>
     <description>Recent content in 技术 on nanimonai&#39;s Blog</description>
-    <generator>Hugo -- 0.136.3</generator>
+    <generator>Hugo -- 0.138.0</generator>
     <language>zh</language>
     <lastBuildDate>Tue, 10 Sep 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tech/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.nanimonai.org/tech/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>First try on RE</title>
-      <link>http://localhost:1313/posts/tech/first-try-on-re/</link>
+      <link>https://blog.nanimonai.org/posts/tech/first-try-on-re/</link>
       <pubDate>Tue, 10 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/tech/first-try-on-re/</guid>
+      <guid>https://blog.nanimonai.org/posts/tech/first-try-on-re/</guid>
       <description>没有悲悯他的神明，命运倒向金钱的天平。</description>
       <content:encoded><![CDATA[<h1 id="第n次re碰壁">第N次RE碰壁</h1>
 <p>​	近来参与尝试 BaseCTF 赛事中的“NEURO爱数学”题，结合官方WP进行总结。</p>
@@ -203,9 +203,9 @@ print(coefficients[::-1])
     </item>
     <item>
       <title>Electronics Design Contest 1</title>
-      <link>http://localhost:1313/posts/tech/electronics-design-contest-before/</link>
+      <link>https://blog.nanimonai.org/posts/tech/electronics-design-contest-before/</link>
       <pubDate>Wed, 28 Aug 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/tech/electronics-design-contest-before/</guid>
+      <guid>https://blog.nanimonai.org/posts/tech/electronics-design-contest-before/</guid>
       <description>无法逃避迷雾丛林，失去了星辰的指引。</description>
       <content:encoded><![CDATA[<p>应某人之邀，写文以记述经历，即使失败，也可以给后人留下一点宝贵经验。</p>
 <p>事实证明他是正确的。</p>
@@ -226,9 +226,9 @@ print(coefficients[::-1])
     </item>
     <item>
       <title>BabyRSA</title>
-      <link>http://localhost:1313/posts/tech/babyrsa/</link>
+      <link>https://blog.nanimonai.org/posts/tech/babyrsa/</link>
       <pubDate>Fri, 19 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/tech/babyrsa/</guid>
+      <guid>https://blog.nanimonai.org/posts/tech/babyrsa/</guid>
       <description>初试Crypto</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
 <p>我是🕊大王，本来4.6一比完就想写了，硬鸽到今天。主要也是因为一堆作业考试给应付得手忙脚乱的。</p>
@@ -367,9 +367,9 @@ print(flag.decode(&#39;utf-8&#39;))
     </item>
     <item>
       <title>Research on the principle of automatic punch-in</title>
-      <link>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</link>
+      <link>https://blog.nanimonai.org/posts/tech/research-on-the-principle-of-automatic-punch-in/</link>
       <pubDate>Thu, 18 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/tech/research-on-the-principle-of-automatic-punch-in/</guid>
+      <guid>https://blog.nanimonai.org/posts/tech/research-on-the-principle-of-automatic-punch-in/</guid>
       <description>应用</description>
       <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
 <p>近日，打卡更新方式，由之前转移到了某一新平台上。求知欲驱使进行研究。写的不周，还请包含，同时我要非常感谢lockey中的一位热心朋友不厌其烦地为我指点迷津。</p>
@@ -833,9 +833,9 @@ crontab -l # 检查一下有没有写好
     </item>
     <item>
       <title>Smart car - freshman trash version</title>
-      <link>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</link>
+      <link>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</link>
       <pubDate>Mon, 15 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/tech/smart-car---freshman-trash-version/</guid>
+      <guid>https://blog.nanimonai.org/posts/tech/smart-car---freshman-trash-version/</guid>
       <description>A good try for young</description>
       <content:encoded><![CDATA[<h1 id="这是什么">这是什么</h1>
 <p>2024校EEA举办无人车的循迹避障赛。欣然规往。</p>
@@ -890,9 +890,9 @@ else if (SL2 == 0 &amp;&amp; SL1 == 0 &amp;&amp; SR1 == 0 &amp;&amp; SR2 == 0 &a
     </item>
     <item>
       <title>WeCom check-in crack</title>
-      <link>http://localhost:1313/posts/tech/wecom-check-in-crack/</link>
+      <link>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/tech/wecom-check-in-crack/</guid>
+      <guid>https://blog.nanimonai.org/posts/tech/wecom-check-in-crack/</guid>
       <description>Out of time</description>
       <content:encoded><![CDATA[<h1 id="为什么研究这个">为什么研究这个</h1>
 <p>学校在企业微信里面要求所有大学生在21:30-23:00期间进行打卡操作。鉴于企业微信的位置获取不是一般的抽象，除了查看你的GPS信号外还有调用附近的基站进行定位（西瓜和Mike 语），最为逆天的是本人的移动设备是哄蒙系统，也就无法享用诸多先进科技带来的便利。</p>

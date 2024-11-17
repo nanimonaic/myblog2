@@ -19,7 +19,7 @@ hidemeta: true
 
 {{< friend name="Dich" url="https://blog.dich.bid/" logo="" word="用电子罗盘，转赛博核桃，勘电磁风水，寻网络龙脉" >}}
 
-{{< friend name="milvoid" url="https://milvoid.com/" logo="https://bed.4everland.store/2.png" word="Milvoid 什么也没有的主页" >}}
+{{< friend name="milvoid" url="https://journal.milvoid.com/" logo="https://bed.4everland.store/2.png" word="Welcome to Milvoid’s Journal!" >}}
 
 {{< friend name="sdy_zjx" url="https://doosam.uk/" logo="https://avatars.githubusercontent.com/u/21271728?v=4" word="可爱的学姐" >}}
 
