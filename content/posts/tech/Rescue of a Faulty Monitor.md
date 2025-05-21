@@ -19,7 +19,7 @@ description: 低品質のブログ
 
 GPT师傅建议我去使用cvt创建自定义模式
 
-```1
+```c
 cvt 2560 1440 240
 xrandr --newmode "2560x1600_240.00" 808.75 2560 2792 3072 3584 1440 1443 1448 1493 -hsync +vsync
 xrandr --addmode DP-1 "2560x1600_240.00"
@@ -27,7 +27,7 @@ xrandr --output DP-1 --mode "2560x1600_240.00"
 ```
 类似这样，一个 RRSetCrtcConfig 错误，表明设置的显示模式参数超出了范围
 
-```1
+```c
 X Error of failed request:  BadValue (integer parameter out of range for operation)Major opcode of failed request:  140 (RANDR)Minor opcode of failed request:  21 (RRSetCrtcConfig)Value in failed request:  0x78Serial number of failed request:  28
 Current serial number in output stream:  28
 ```
@@ -35,7 +35,7 @@ Current serial number in output stream:  28
 
 看下日志的 EDID (Extended display identification data) 怎么说
 
-```sudo get-edid | parse-edid
+```c
 > sudo get-edid | parse-edid
 This is read-edid version 3.0.2. Prepare for some fun.
 Attempting to use i2c interface

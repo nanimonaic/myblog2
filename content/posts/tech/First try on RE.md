@@ -11,18 +11,19 @@ description: "没有悲悯他的神明，命运倒向金钱的天平。"
 ​	近来参与尝试 BaseCTF 赛事中的“NEURO爱数学”题，结合官方WP进行总结。
 
 ​	题目共给出三项提示：
-
- 	1. flag为BaseCTF开头。z3可能存在多解，请尝试从数学角度解决。
- 	2. 你知道的，11AdD8_result_21。
+```1
+ 	1. flag为BaseCTF开头。z3可能存在多解，请尝试从数学角度解决。  
+ 	
+ 	2. 你知道的，11AdD8_result_21。  
+ 	
  	3. 多项式展开
-
+```
 ​	下载下来是一个exe，选择拖入die。没什么问题：
 
 ![](https://img.nanimonai.org/DIE.png) 
-
 ​	再拖入ida端详。找到main后进入Pseduocode：
 
-```
+```C++
 int __fastcall main(int argc, const char **argv, const char **envp)
 {
   FILE *v3; // rax
@@ -169,7 +170,7 @@ $$ x_1i^8 + x_2i^7 + x_3i^6 + x_4i^5 + x_5i^4 + x_6i^3 + x_7i^2 + x_8i^1 + x_9i^
 
 ​	以下是复现：
 
-```
+```C++
 #include <stdio.h>
 #include <stdint.h>
 
@@ -196,7 +197,7 @@ int main(){
 
 ​	将其展开与上面对比就可以知道x1-x9的数值：
 
-```
+```python
 from sympy import symbols, expand
 x = symbols('x')
 polynomial = (x - 44) * (x - 58) * (x - 5) * (x + 37) * (x - 17) * (x + 9) * (x - 6) * (x + 4)

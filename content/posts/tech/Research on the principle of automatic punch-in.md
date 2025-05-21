@@ -26,7 +26,7 @@ description: 应用
 写如下代码以还原出公钥：
 
 
-```
+```python
 import OpenSSL.crypto
 
 cert_text = """
@@ -81,7 +81,7 @@ print(public_key)
     
 获取cookie，参考github可得：
   
-```
+```python
 
 def auth(self):
     COOKIES = {}
@@ -115,8 +115,6 @@ All right. 现在只需要PHPSESSID.
   
 进行ADB调试，其中挺复杂的。我未来也要尝试一下有没有更加简单的调试方法。首先你PC得有Chrome，Firefox就不行。我Linux上面用的是Chromium。第一次尝试的时候移动端使用的是旧版本的Kiwi Browser，导致 chrome://inspect/#devices 这个界面没有inspect fallback选项。更新就行了。
   
-![](https://img.nanimonai.org/404.png)
-  
 在kiwi上找到Network Conditions，把用户代理叉掉并自定义写上MicroMessenger。
 
 
@@ -124,7 +122,7 @@ All right. 现在只需要PHPSESSID.
   
 这个其实可以直接在控制台输入命令获取（忘记截图了，可以自己去试一下）：  
   
-```
+```1
 console.log("User-Agent:", navigator.userAgent);
 ```
 
@@ -147,7 +145,7 @@ console.log("User-Agent:", navigator.userAgent);
 脚本是大爱无私宽仁的Mike修改的，最初版是来自[this](https://wcyuns.cn/archives/%E6%98%93%E7%8F%AD%E6%99%9A%E7%AD%BE%E8%84%9A%E6%9C%AC)思路也是借鉴于此，上面也算是重走一遍。真所谓巧夺天工，令人敬佩！
     
     
-```
+```python
 import json
 import re
 import sys
@@ -434,7 +432,7 @@ if __name__ == "__main__":
 这个脚本有几处在Arch Linux上并不适用。  
 
 pip会往系统里面带脏东西，所以并不能直接执行pip install。会有如下报错：
-```
+```console
 pip install numpy
 error: externally-managed-environment
 
@@ -457,7 +455,7 @@ hint: See PEP 668 for the detailed specification.
 
 ```
 最恰当的方法应该是给他来个虚拟环境。且msvcrt是一个Windows特定的模块，在Linux上不可用，可以代码里面直接给它扬了：
-```
+```python
 ...# 上述代码照抄
 
 def loginin(self): # 登陆校验
@@ -474,7 +472,7 @@ def loginin(self): # 登陆校验
 ...# 下面照抄
 ```
 构建虚拟环境需要：
-```
+```console
 python3 -m venv /path/to/new/virtual/environment
 
 source /path/to/new/virtual/environment/bin/activate
@@ -484,7 +482,7 @@ pip install requests numpy jsonpath
 deactivate
 ```
 在你的py文件目录下创建一个.sh：
-```
+```console
 #!/bin/bash
 
 VENV_DIR="/path/to/your/venv"
@@ -502,7 +500,7 @@ chmod +x /path/to/your/script.sh
 ```  
 
 然后就是考虑在Linux上如何进行定时任务的问题，经某位lockey朋友启发选择直接上大家所熟悉的cron：
-```
+```console
 sudo pacman -S cronie
 sudo systemctl start cronie.service
 sudo systemctl enable cronie.service
