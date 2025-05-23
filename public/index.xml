@@ -1300,9 +1300,11 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/about/</guid>
       <description>&lt;p&gt;我是一个爱打游戏的小屁孩，目前正在努力学习跟上大人们的步伐，却又畏惧于大人们世界的惊涛骇浪，可能是我还没有准备好去经受苦难。&lt;/p&gt;
+&lt;p&gt;我的&lt;a href=&#34;https://github.com/nanimonaic&#34;&gt;Github&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;本项目由 &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 生成&lt;/p&gt;
 &lt;p&gt;主题 &lt;a href=&#34;https://github.com/adityatelange/hugo-Paper&#34;&gt;Paper&lt;/a&gt; 由 &lt;a href=&#34;https://github.com/adityatelange&#34;&gt;adityatelange&lt;/a&gt; 开发&lt;/p&gt;</description>
       <content:encoded><![CDATA[<p>我是一个爱打游戏的小屁孩，目前正在努力学习跟上大人们的步伐，却又畏惧于大人们世界的惊涛骇浪，可能是我还没有准备好去经受苦难。</p>
+<p>我的<a href="https://github.com/nanimonaic">Github</a></p>
 <p>本项目由 <a href="https://gohugo.io/">Hugo</a> 生成</p>
 <p>主题 <a href="https://github.com/adityatelange/hugo-Paper">Paper</a> 由 <a href="https://github.com/adityatelange">adityatelange</a> 开发</p>
 ]]></content:encoded>

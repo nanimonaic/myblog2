@@ -8,7 +8,8 @@ comments: false
 
 
 我是一个爱打游戏的小屁孩，目前正在努力学习跟上大人们的步伐，却又畏惧于大人们世界的惊涛骇浪，可能是我还没有准备好去经受苦难。
-
+  
+  我的[Github](https://github.com/nanimonaic)
 
 本项目由 [Hugo](https://gohugo.io/) 生成
 
